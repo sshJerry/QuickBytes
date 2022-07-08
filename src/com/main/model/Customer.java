@@ -4,17 +4,11 @@ public class Customer {
 	private int customerId;
 	private int employeeId;
 	private String firstName;
-	public Customer(int customerId, int employeeId, String firstName, String lastName, String username, String password,
-			float balance) {
-		super();
-		this.customerId = customerId;
-		this.employeeId = employeeId;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.username = username;
-		this.password = password;
-		this.balance = balance;
-	}
+	private String lastName;
+	private String username;
+	private String password;
+	private float balance;
+	
 	public int getCustomerId() {
 		return customerId;
 	}
@@ -57,14 +51,26 @@ public class Customer {
 	public void setBalance(float balance) {
 		this.balance = balance;
 	}
-	private String lastName;
-	private String username;
-	private String password;
-	private float balance;
+	
+	
 	@Override
 	public String toString() {
 		return "Customer [customerId=" + customerId + ", employeeId=" + employeeId + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", username=" + username + ", password=" + password + ", balance="
 				+ balance + "]";
+	}
+	
+	public Customer() {
+	}
+	
+	public Customer(int customerId, int employeeId, String firstName, String lastName, String username, String password,
+			float balance) {
+		this.customerId = customerId;
+		this.employeeId = employeeId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.username = username;
+		this.password = password;
+		this.balance = balance;
 	}
 }
