@@ -7,13 +7,17 @@ public class QuickBytes {
 		UserService userService = new UserService();
 		
 		while (true) {
-			int input = userService.displayMenuAndReadInput();
-			System.out.println(input);
+			int userType = userService.displayMenuAndReadInput();
 			
-			if (input == 0) {
+			System.out.println(userType);
+			
+			if (userType == 0) {
 				System.out.println("Exiting... Bye!");
 				break;
 			}
+			
+			userService.login(userType);		
+			System.out.println();
 			
 		}
 	}

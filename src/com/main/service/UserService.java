@@ -19,4 +19,13 @@ public class UserService {
 		return input;
 	}
 
+	public void login(int userType) {
+		if (userType == 1) {
+			//customer login
+		} 
+		if (userType == 2){
+			//vendor login
+		}
+	}
+
 }
