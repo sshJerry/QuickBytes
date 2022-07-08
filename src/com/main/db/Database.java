@@ -14,7 +14,7 @@ public class Database {
 			e.printStackTrace();
 		}
 		try {
-			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/"
+			connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/quickbytesteam"
 					,"root","Password123");
 			System.out.println("DEBUG: Connection Established");
 		}catch(SQLException e) {
