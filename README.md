@@ -25,22 +25,9 @@
 <br />
 
 > Data Functionalities
-- Customer Creation 
-- Customer Login Validation 
-- Customer Adjust Balance 
-- Customer Add Items to Order 
-- Customer Place Order 
-- Customer Edit Order 
-- Customer Cancel Order 
-- Customer Logout 
-- Vendor Creation 
-- Vendor Login Validation 
-- Vendor Add Items 
-- Vendor Create Meal Sets 
-- Vendor Remove Items 
-- Vendor Edit Items (Change Availability) 
-- Vendor Edit Sets 
-- Vendor Accept/Deny Order 
-- Balance Automatically Adjusted 
-- Vendor Logout 
+- Customer
+  - Creation, Login Validation, Adjust Balance, Add Items to Order, Place Order, Edit Order, Cancel Order, Logout
+- Vendor
+  - Creation Login Validation, Add Items, Create Meal Sets, Remove Items, Edit Items (Change Availablity), Edit Sets, Accept/Deny Order, Logout
+- Balanced Automatically Adjusted
 <br />
