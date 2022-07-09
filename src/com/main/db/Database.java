@@ -106,9 +106,20 @@ public class Database {
 	}
 
 
-	public Boolean validateCustomer(String id, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean validateCustomer(String username, String password) throws SQLException {
+		dbConnect();
+		String sql="select * from customer";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		ResultSet  rst = pstmt.executeQuery();
+		boolean result=false;
+		while(rst.next()) {
+			if(username.equals(rst.getString("customerID"))) {
+				result=true;
+			}
+				
+			}
+			
+		return result;
 	}
 
 	public Boolean validateVendor(String id, String password) {

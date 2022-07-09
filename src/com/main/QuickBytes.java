@@ -1,13 +1,17 @@
 package com.main;
 
+import java.sql.SQLException;
+
+import com.main.db.Database;
 import com.main.service.UserService;
 
 public class QuickBytes {
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		UserService userService = new UserService();
 		int userType;
 		boolean userTypeIsValid = false;
-		
+		Database db=new Database();
+		db.dbConnect();
 		while (!userTypeIsValid) {
 			userType = userService.displayMenuAndReadInput();
 			
