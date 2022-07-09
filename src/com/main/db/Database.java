@@ -113,7 +113,7 @@ public class Database {
 		ResultSet  rst = pstmt.executeQuery();
 		boolean result=false;
 		while(rst.next()) {
-			if(username.equals(rst.getString("customerID"))) {
+			if(username.equals(rst.getString("username"))) {
 				result=true;
 			}
 				
