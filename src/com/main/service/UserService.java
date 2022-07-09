@@ -5,17 +5,20 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.main.db.Database;
+import com.main.model.Customer;
 
 public class UserService {
 	private Scanner sc;
+	Database db = new Database();
 	public int displayMenuAndReadInput() {
 		int input = -1;
 		
 		System.out.println("****Welcome to QuickBytes Canteen Service****\n");
-		System.out.println("Login As:");
+		System.out.println("0. Create Account");
+		System.out.println("If Account is Already Created, Login As:");
 		System.out.println("1. Customer");
 		System.out.println("2. Vendor");
-		System.out.println("0. Exit");
+		System.out.println("3. Exit");
 		
 		try {
 			input = sc.nextInt();
@@ -32,7 +35,6 @@ public class UserService {
 	}
 
 	public void login(int userType) throws SQLException {
-		Database db = new Database();
 		Boolean userIsValid = false;
 		
 		try {
@@ -63,6 +65,26 @@ public class UserService {
 		} catch (InputMismatchException ime) {
 			System.out.println("\n Incorrect Input Type. Please Try Again!");
 		}
+	}
+
+	public void createaccount() {
+		Customer customer=new Customer();
+		Scanner sc = new Scanner(System.in);
+		System.out.println("enter employeeId");
+		customer.setEmployeeId(sc.nextInt());
+		System.out.println("enter firstname");
+		customer.setFirstName(sc.next());
+		System.out.println("enter lastname");
+		customer.setLastName(sc.next());
+		System.out.println("enter username");
+		customer.setUsername(sc.next());
+		System.out.println("enter password");
+		customer.setPassword(sc.next());
+		System.out.println("add balance");
+		customer.setBalance(sc.nextFloat());
+		
+		db.insertCustomer(customer);
+		
 	}
 
 }

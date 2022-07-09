@@ -126,6 +126,29 @@ public class Database {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	public void insertCustomer(Customer customer) {
+		 dbConnect();
+		 String sql="insert into customer(employeeId, firstname, lastname, username, password, balance) "
+		 		+ "values (?,?,?,?,?,?)";
+		 
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, customer.getEmployeeId());
+			pstmt.setString(2, customer.getFirstName());
+			pstmt.setString(3, customer.getLastName());
+			pstmt.setString(4, customer.getUsername());
+			pstmt.setString(5, customer.getPassword());
+			pstmt.setFloat(6, customer.getBalance());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		 dbClose();
+	}
 
 	
 }

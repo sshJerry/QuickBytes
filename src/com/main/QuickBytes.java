@@ -15,7 +15,7 @@ public class QuickBytes {
 		while (!userTypeIsValid) {
 			userType = userService.displayMenuAndReadInput();
 			
-			if (userType == 0) {
+			if (userType == 3) {
 				break;
 			}
 			
@@ -23,6 +23,10 @@ public class QuickBytes {
 				userTypeIsValid = true; //stop while loop
 				userService.login(userType); //login
 			} 
+			if (userType==0) {
+				userTypeIsValid = true; //stop while loop
+				userService.createaccount(); 
+			}
 		}
 		
 		System.out.println("\nExiting... Farewell!"); //exit program
