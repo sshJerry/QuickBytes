@@ -123,10 +123,22 @@ public class Database {
 		return result;
 	}
 
-	public Boolean validateVendor(String id, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public Boolean validateVendor(String username, String password) throws SQLException {
+		dbConnect();
+		String sql="select * from vendor";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		ResultSet  rst = pstmt.executeQuery();
+		boolean result=false;
+		while(rst.next()) {
+			if(username.equals(rst.getString("username"))) {
+				result=true;
+			}
+				
+			}
+			
+		return result;
 	}
+
 	
 	public void insertCustomer(Customer customer) {
 		 dbConnect();
@@ -172,5 +184,29 @@ public class Database {
 		
 	}
 
+	public List<Vendor> fetchVendors() {
+		dbConnect();
+		String sql="select * from vendor";
+		PreparedStatement pstmt;
+		List<Vendor> list = new ArrayList<>();
+		try {
+			pstmt = con.prepareStatement(sql);
+			ResultSet  rst = pstmt.executeQuery();
+				while(rst.next()) {
+					list.add(new Vendor(rst.getInt("vendorid"),
+										  rst.getInt("businessid"),
+										  rst.getString("name"), 
+										  rst.getString("username"),
+										  rst.getString("password")
+										  ));
+		}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			dbClose();
+			return list;
+
 	
+}
 }

@@ -2,6 +2,7 @@ package com.main.service;
 
 import java.sql.SQLException;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.main.db.Database;
@@ -52,6 +53,7 @@ public class UserService {
 				userIsValid = db.validateCustomer(username,password);
 				if (userIsValid==true) {
 					System.out.println("validated");
+					this.displaycustomeroptions();
 				}
 				else {
 					System.out.println("not validated");
@@ -59,6 +61,12 @@ public class UserService {
 				break;
 			case 2: 
 				userIsValid = db.validateVendor(username,password);
+				if (userIsValid==true) {
+					System.out.println("validated");
+				}
+				else {
+					System.out.println("not validated");
+				}
 				break;
 			default: 
 				break;
@@ -66,6 +74,21 @@ public class UserService {
 		} catch (InputMismatchException ime) {
 			System.out.println("\n Incorrect Input Type. Please Try Again!");
 		}
+	}
+
+	public void displaycustomeroptions() {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1: Show Vendors");
+		System.out.println("2: Show Order");
+		System.out.println("0: Logout");
+		int input=sc.nextInt();
+		if (input==1) {
+			List<Vendor> vlist=db.fetchVendors();
+			for (Vendor v: vlist) {
+				System.out.println(v.getName());
+			}
+		}
+		
 	}
 
 	public void createaccount() {
