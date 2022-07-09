@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.main.model.Customer;
+import com.main.model.Vendor;
 
 public class Database {
 	Connection con;
@@ -148,6 +149,27 @@ public class Database {
 		}
 		 
 		 dbClose();
+	}
+
+	public void insertVendor(Vendor vendor) {
+		dbConnect();
+		 String sql="insert into vendor(businessId, name, username, password)"
+		 		+ "values (?,?,?,?)";
+		 
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, vendor.getBusinessId());
+			pstmt.setString(2, vendor.getName());
+			pstmt.setString(3, vendor.getUsername());
+			pstmt.setString(4, vendor.getPassword());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
+		
 	}
 
 	

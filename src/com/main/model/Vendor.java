@@ -7,6 +7,9 @@ public class Vendor {
 	public int getVendorId() {
 		return vendorId;
 	}
+	public Vendor() {
+		super();
+	}
 	public void setVendorId(int vendorId) {
 		this.vendorId = vendorId;
 	}

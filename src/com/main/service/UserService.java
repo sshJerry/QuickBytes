@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import com.main.db.Database;
 import com.main.model.Customer;
+import com.main.model.Vendor;
 
 public class UserService {
 	private Scanner sc;
@@ -68,22 +69,44 @@ public class UserService {
 	}
 
 	public void createaccount() {
-		Customer customer=new Customer();
 		Scanner sc = new Scanner(System.in);
-		System.out.println("enter employeeId");
-		customer.setEmployeeId(sc.nextInt());
-		System.out.println("enter firstname");
-		customer.setFirstName(sc.next());
-		System.out.println("enter lastname");
-		customer.setLastName(sc.next());
-		System.out.println("enter username");
-		customer.setUsername(sc.next());
-		System.out.println("enter password");
-		customer.setPassword(sc.next());
-		System.out.println("add balance");
-		customer.setBalance(sc.nextFloat());
+		System.out.println("Create Account as:");
+		System.out.println("1: Customer");
+		System.out.println("2: Vendor");
+		Customer customer=new Customer();
+		Vendor vendor=new Vendor();
+		int input=sc.nextInt();
+		if (input==1) {
+			System.out.println("enter employeeId");
+			customer.setEmployeeId(sc.nextInt());
+			System.out.println("enter firstname");
+			customer.setFirstName(sc.next());
+			System.out.println("enter lastname");
+			customer.setLastName(sc.next());
+			System.out.println("enter username");
+			customer.setUsername(sc.next());
+			System.out.println("enter password");
+			customer.setPassword(sc.next());
+			System.out.println("add balance");
+			customer.setBalance(sc.nextFloat());
+			db.insertCustomer(customer);
 		
-		db.insertCustomer(customer);
+			
+		}
+		switch(input) {
+		case(2): 	
+		System.out.println("enter businessId");
+		vendor.setBusinessId(sc.nextInt());
+		System.out.println("enter name");
+		vendor.setName(sc.next());
+		System.out.println("enter username");
+		vendor.setUsername(sc.next());
+		System.out.println("enter password");
+		vendor.setPassword(sc.next());
+		db.insertVendor(vendor);
+		
+		}
+		
 		
 	}
 
