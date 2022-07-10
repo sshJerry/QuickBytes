@@ -22,8 +22,7 @@ public class Database {
 			e.printStackTrace();
 		}
 		try {
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quickbytesteam"
-					,"root","Password123");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/quickbytesteam","root","Password123");
 			System.out.println("DEBUG: Connection Established");
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -209,4 +208,54 @@ public class Database {
 
 	
 }
+
+	/*public void fetchItems(int id) {
+		dbConnect();
+		String sql="select * from item where username= ?";
+		PreparedStatement pstmt;
+		List<Vendor> list = new ArrayList<>();
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, username);
+			ResultSet  rst = pstmt.executeQuery();
+				while(rst.next()) {
+					list.add(new Vendor(rst.getInt("vendorid"),
+										  rst.getInt("businessid"),
+										  rst.getString("name"), 
+										  rst.getString("username"),
+										  rst.getString("password")
+										  ));
+		}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			dbClose();
+			return list;
+
+	
 }
+*/
+	public int fetchID(String username) {
+		
+		dbConnect();
+		String sql="select id from vendor where username=?";
+		PreparedStatement pstmt;
+		int id=-1;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(4, username);
+			ResultSet  rst = pstmt.executeQuery();
+				while(rst.next()) {
+					id=rst.getInt("vendorId");
+		}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			dbClose();
+			return id;
+	}
+		
+	}
+

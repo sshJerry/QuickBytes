@@ -63,6 +63,7 @@ public class UserService {
 				userIsValid = db.validateVendor(username,password);
 				if (userIsValid==true) {
 					System.out.println("validated");
+					displayvendoroptions(username);
 				}
 				else {
 					System.out.println("not validated");
@@ -75,6 +76,20 @@ public class UserService {
 			System.out.println("\n Incorrect Input Type. Please Try Again!");
 		}
 	}
+
+	public void displayvendoroptions(String username) {
+		Scanner sc = new Scanner(System.in);
+		System.out.println("1: Show Menu Items");
+		System.out.println("2: Add Item");
+		System.out.println("3: Create Meal Set");
+		System.out.println("4: View Orders");
+		System.out.println("0: Logout");
+		int input=sc.nextInt();
+		if (input==1) {
+		int id=db.fetchID(username);
+		System.out.println(id);
+		//db.fetchItems(username);
+	}}
 
 	public void displaycustomeroptions() {
 		Scanner sc = new Scanner(System.in);
