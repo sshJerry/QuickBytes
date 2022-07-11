@@ -25,7 +25,7 @@ public class QuickBytes {
 			} 
 			if (userType==0) { 
 				//stop while loop
-				userService.createaccount(); 
+				userService.createAccount(); 
 			}
 		}
 		
