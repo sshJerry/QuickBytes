@@ -16,11 +16,11 @@ public class UserService {
 	public int displayMenuAndReadInput() {
 		int input = -1;
 		
-		System.out.println("****Welcome to QuickBytes Canteen Service****\n");
+		System.out.println("****Welcome to QuickBytes Canteen Service****\n"); //
 		System.out.println("0. Create Account");
 		System.out.println("If Account is Already Created, Login As:");
-		System.out.println("1. Customer");
-		System.out.println("2. Vendor");
+		System.out.println("1. Login As Customer");
+		System.out.println("2. Login As Vendor");
 		System.out.println("3. Exit");
 		
 		try {
@@ -54,7 +54,7 @@ public class UserService {
 				userIsValid = db.validateCustomer(username,password);
 				if (userIsValid==true) {
 					System.out.println("validated");
-					this.displaycustomeroptions();
+					this.displayCustomerOptions();
 				}
 				else {
 					System.out.println("not validated");
@@ -64,7 +64,7 @@ public class UserService {
 				userIsValid = db.validateVendor(username,password);
 				if (userIsValid==true) {
 					System.out.println("validated");
-					displayvendoroptions(username);
+					displayVendorOptions(username);
 				}
 				else {
 					System.out.println("not validated");
@@ -78,7 +78,7 @@ public class UserService {
 		}
 	}
 
-	public void displayvendoroptions(String username) {
+	public void displayVendorOptions(String username) {
 		Scanner sc = new Scanner(System.in);
 		Item item=new Item();
 		System.out.println("1: Show Menu Items");
@@ -107,7 +107,7 @@ public class UserService {
 			}}
 		
 
-	public void displaycustomeroptions() {
+	public void displayCustomerOptions() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("1: Show Vendors");
 		System.out.println("2: Show Order");
@@ -122,7 +122,7 @@ public class UserService {
 		
 	}
 
-	public void createaccount() {
+	public void createAccount() {
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Create Account as:");
 		System.out.println("1: Customer");
