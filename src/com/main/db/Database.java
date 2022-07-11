@@ -7,4 +7,9 @@ public class Database {
 		
 	}
 
+	public void close() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

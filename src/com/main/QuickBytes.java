@@ -24,5 +24,6 @@ public class QuickBytes {
 			
 		}
 		System.out.println("\nExiting... Farewell!"); //exit program
+		db.close();
 	}
 }
