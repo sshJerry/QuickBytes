@@ -93,7 +93,7 @@ public class Database {
 	
 	public void deleteCustomer(int customerId) {
 		dbConnect();
-		String sql = "delete from customer where id = ?";
+		String sql = "delete from customer where id = ?"; //will need to be updated for fks
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, customerId);
