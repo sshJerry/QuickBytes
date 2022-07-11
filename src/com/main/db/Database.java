@@ -115,10 +115,14 @@ public class Database {
 		boolean result=false;
 		while(rst.next()) {
 			if(username.equals(rst.getString("username"))) {
-				result=true;
-			}
+				if (password.equals(rst.getString("password"))){
+					result=true;
 				
 			}
+			
+				
+			}
+		}
 			
 		return result;
 	}
@@ -131,7 +135,9 @@ public class Database {
 		boolean result=false;
 		while(rst.next()) {
 			if(username.equals(rst.getString("username"))) {
-				result=true;
+				if (password.equals(rst.getString("password"))){
+					result=true;
+				}
 			}
 				
 			}
