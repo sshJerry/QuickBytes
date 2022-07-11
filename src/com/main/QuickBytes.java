@@ -20,11 +20,11 @@ public class QuickBytes {
 			}
 			
 			if (userType == 1 || userType == 2) { //if user is a customer or vendor
-				userTypeIsValid = true; //stop while loop
+				//stop while loop
 				userService.login(userType); //login
 			} 
-			if (userType==0) {
-				userTypeIsValid = true; //stop while loop
+			if (userType==0) { 
+				//stop while loop
 				userService.createaccount(); 
 			}
 		}

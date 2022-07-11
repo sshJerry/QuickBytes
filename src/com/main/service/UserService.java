@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import com.main.db.Database;
 import com.main.model.Customer;
+import com.main.model.Item;
 import com.main.model.Vendor;
 
 public class UserService {
@@ -79,17 +80,32 @@ public class UserService {
 
 	public void displayvendoroptions(String username) {
 		Scanner sc = new Scanner(System.in);
+		Item item=new Item();
 		System.out.println("1: Show Menu Items");
 		System.out.println("2: Add Item");
 		System.out.println("3: Create Meal Set");
 		System.out.println("4: View Orders");
 		System.out.println("0: Logout");
 		int input=sc.nextInt();
-		if (input==1) {
 		int id=db.fetchID(username);
-		System.out.println(id);
-		//db.fetchItems(username);
-	}}
+		if (input==1) {
+		List<Item> vlist=db.fetchItems(id);
+		for (Item i: vlist) {
+			System.out.println(i.getName());
+	}
+		}
+		switch(input) {
+		case(2):
+			item.setVendorId(id);
+			System.out.println("Enter name");
+			item.setName(sc.next());
+			System.out.println("Enter Price");
+			item.setPrice(sc.nextFloat());
+			System.out.println("Enter Quantity");
+			item.setQuantity(sc.nextInt());
+			db.insertItem(item);
+			}}
+		
 
 	public void displaycustomeroptions() {
 		Scanner sc = new Scanner(System.in);

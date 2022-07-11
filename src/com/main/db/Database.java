@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.main.model.Customer;
+import com.main.model.Item;
 import com.main.model.Vendor;
 
 public class Database {
@@ -209,21 +210,21 @@ public class Database {
 	
 }
 
-	/*public void fetchItems(int id) {
+	public List<Item> fetchItems(int id) {
 		dbConnect();
-		String sql="select * from item where username= ?";
+		String sql="select * from item where vendorId= ?";
 		PreparedStatement pstmt;
-		List<Vendor> list = new ArrayList<>();
+		List<Item> list = new ArrayList<>();
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, username);
+			pstmt.setInt(1, id);
 			ResultSet  rst = pstmt.executeQuery();
 				while(rst.next()) {
-					list.add(new Vendor(rst.getInt("vendorid"),
-										  rst.getInt("businessid"),
+					list.add(new Item(rst.getInt("itemId"),
+										  rst.getInt("vendorId"),
 										  rst.getString("name"), 
-										  rst.getString("username"),
-										  rst.getString("password")
+										  rst.getFloat("price"),
+										  rst.getInt("quantity")
 										  ));
 		}
 		}catch (SQLException e) {
@@ -235,16 +236,16 @@ public class Database {
 
 	
 }
-*/
+
 	public int fetchID(String username) {
 		
 		dbConnect();
-		String sql="select id from vendor where username=?";
+		String sql="select vendorId from vendor where username=?";
 		PreparedStatement pstmt;
 		int id=-1;
 		try {
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(4, username);
+			pstmt.setString(1, username);
 			ResultSet  rst = pstmt.executeQuery();
 				while(rst.next()) {
 					id=rst.getInt("vendorId");
@@ -256,6 +257,29 @@ public class Database {
 			dbClose();
 			return id;
 	}
+
+	public void insertItem(Item item) {
+		dbConnect();
+		 String sql="insert into item(name, price, quantity, vendorid)"
+		 		+ "values (?,?,?,?)";
+		 
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, item.getName());
+			pstmt.setFloat(2, item.getPrice());
+			pstmt.setInt(3, item.getQuantity());
+			pstmt.setInt(4, item.getVendorId());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 
 		
 	}
+		
+	}
+		
+
 

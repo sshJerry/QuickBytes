@@ -10,6 +10,9 @@ public class Item {
 		Price = price;
 		this.quantity = quantity;
 	}
+	public Item() {
+		super();
+	}
 	public int getItemId() {
 		return itemId;
 	}
