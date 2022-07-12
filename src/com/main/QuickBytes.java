@@ -16,7 +16,7 @@ public class QuickBytes {
 			// KEVIN
 			
 			// Option 1 - Login
-			if (mainInput == 1) { //if user is a customer or vendor
+			if (mainInput == 1) {
 			uService.login(); //login
 			}
 			

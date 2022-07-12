@@ -76,7 +76,7 @@ public class UserService {
 		}
 	}
 
-	//Called after choosing to create an account
+	//Signup Menu
 	private int displayCreateAndReadInput() {
 		int input = -1;
 		
@@ -95,7 +95,7 @@ public class UserService {
 		return input;
 	}
 
-	//Called after choosing to login
+	//Login Menu
 	private int displayLoginAndReadInput() {
 		int input = -1;
 		
