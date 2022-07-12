@@ -31,7 +31,7 @@ public class Database {
 		}
 	}
 
-	public void vendorCreateAccount(Vendor vendor) {
+	public void addVendor(Vendor vendor) {
 		dbConnect();
 		
 		String sql="insert into vendor(businessId,name,username,password) values (?,?,?,?)";

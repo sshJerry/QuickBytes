@@ -30,7 +30,7 @@ public class VendorService {
 		String password = sc.nextLine();
 		
 		Vendor vendor = new Vendor(businessId,name,username,password);
-		db.vendorCreateAccount(vendor);
+		db.addVendor(vendor);
 	}
 	
 	public void login() {
