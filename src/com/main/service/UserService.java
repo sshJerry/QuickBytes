@@ -39,8 +39,6 @@ public class UserService {
 		while (true) {
 			userInput = this.displayCreateAndReadInput();
 			
-			// KEVIN
-			
 			// Option 1 - Customer
 			if (userInput == 1) {
 				cService.createAccount(); 
