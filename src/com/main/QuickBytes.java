@@ -1,29 +1,36 @@
 package com.main;
 
-import com.main.db.Database;
 import com.main.service.UserService;
 
 public class QuickBytes {
 	public static void main(String[] args) {
-		UserService userService = new UserService();
-		int userType;
-		boolean userTypeIsValid = false;
-		Database db=new Database();
-		db.dbConnect();
+		System.out.println("****Welcome to QuickBytes Canteen Service****"); 
 		
-		while (!userTypeIsValid) {
-			userType = userService.displayMenuAndReadInput();
+		UserService uService = new UserService();
+		int mainInput;
+		
+		//Main Menu
+		while (true) {
+			mainInput = uService.displayMainAndReadInput();
 			
 			// KEVIN
 			
 			// Option 1 - Login
-			userService.login(userType); //login
-			// Option 2 - Create Account
-			userService.createAccount(); 
-			// Option 0 - Exit
+			if (mainInput == 1) { //if user is a customer or vendor
+			uService.login(); //login
+			}
 			
+			// Option 2 - Create Account
+			if (mainInput == 2) {
+				uService.createAccount(); 
+			}
+			
+			// Option 0 - Exit
+			if (mainInput == 0) {
+				break;	
+			}
 		}
+		
 		System.out.println("\nExiting... Farewell!"); //exit program
-		db.close();
 	}
 }
