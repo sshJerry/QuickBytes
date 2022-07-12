@@ -6,6 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import com.main.model.Item;
+import com.main.model.Vendor;
+import com.main.model.Customer;
+import com.main.model.Order;
 
 public class Database {
 	Connection con;
@@ -31,9 +34,10 @@ public class Database {
 		}
 	}
 	
+	
 	/*
 	 * @parameters
-	 * i -> an item that has just been created and now is being inserted into the db
+	 * i -> an item that has just been created and now is being inserted into the database
 	 */
 	public void addItem(Item i) {
 		dbConnect();
@@ -50,6 +54,28 @@ public class Database {
 			f.printStackTrace();
 		}
 		dbClose();
+	}
 		
+
+
+	public void addVendor(Vendor vendor) {
+		dbConnect();
+		
+		String sql="insert into vendor(businessId,name,username,password) values (?,?,?,?)";
+		 
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, vendor.getBusinessId());
+			pstmt.setString(2, vendor.getName());
+			pstmt.setString(3, vendor.getUsername());
+			pstmt.setString(4, vendor.getPassword());
+			
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		dbClose();
 	}
 }
