@@ -83,6 +83,8 @@ public class Database {
 		dbClose();
 	}
 	
+	/** ORDER_ITEM */
+	
 	/*
 	 * TO BE CALLED WHEN A CUSTOMER ADDS ANY ITEM FROM A VENDOR
 	 * after addOrder() when applicable
