@@ -1,5 +1,7 @@
 package com.main.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 import com.main.db.Database;
@@ -13,7 +15,7 @@ public class ItemService {
 	//test main method
 	public static void main(String[] args) {
 		ItemService is = new ItemService();
-		is.createItem(1);
+		is.editItem(1);
 	}
 	/*
 	 * @parameters 
@@ -37,6 +39,41 @@ public class ItemService {
 		i.setVendorId(vendorId);
 		
 		db.addItem(i);
+	}
+	
+	/*
+	 * @parameters 
+	 * vendorId will taken from the session where the vendor is logged in
+	 */
+	
+	public void editItem(int vendorId) {
+		sc = new Scanner(System.in);
+		
+		//validating the vendors ability to edit the item
+		List<Item> il= db.fetchItems(vendorId);
+		for(int i = 0; i < il.size(); i++) {
+			System.out.println("press "+i+" to edit "+il.get(i).getName());
+		}
+		int index = sc.nextInt();
+		Item editedItem = il.get(index);
+		int itemId = editedItem.getItemId();
+		System.out.println("What would you like the new name of your item: "+ editedItem.getName()+" to be?");
+		sc.nextLine();
+		String newName= sc.nextLine();
+		System.out.println("What would you like the new price of your item:"+ newName+" to be?");
+		float price= sc.nextFloat();
+		System.out.println("How many "+ newName+"s do you have in stock?");
+		int quantity= sc.nextInt();
+			
+		//setting up the item for db editing
+		Item i = new Item();
+		i.setItemId(itemId);
+		i.setName(newName);
+		i.setQuantity(quantity);
+		i.setPrice(price);
+		i.setVendorId(vendorId);
+		db.updateItem(i);
+			
 		
 	}
 }
