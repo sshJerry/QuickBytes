@@ -2,24 +2,38 @@ package com.main.model;
 
 public class Order {
 	private int orderId;
-	private int customerId;
 	private float totalPrice;
 	private String status;
 	private String orderTime; //Temporary until we get datetime
 	private String endTime; //Temporary until we get datetime
+	private int customerId;
+	
 	public Order() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public Order(int orderId, int customerId, float totalPrice, String status, String orderTime, String endTime) {
 		super();
+		
 		this.orderId = orderId;
+		this.totalPrice = totalPrice;
+		this.status = status;
+		this.orderTime = orderTime;
+		this.endTime = endTime;
+		this.customerId = customerId;
+	}
+	
+	//Constructor without orderId for creating orders
+	public Order(int customerId, float totalPrice, String status, String orderTime, String endTime) {
+		super();
+		
 		this.customerId = customerId;
 		this.totalPrice = totalPrice;
 		this.status = status;
 		this.orderTime = orderTime;
 		this.endTime = endTime;
 	}
+	
 	public int getOrderId() {
 		return orderId;
 	}
@@ -56,6 +70,7 @@ public class Order {
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
+	
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", customerId=" + customerId + ", totalPrice=" + totalPrice + ", status="
