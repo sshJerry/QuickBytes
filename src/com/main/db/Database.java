@@ -2,7 +2,10 @@ package com.main.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import com.main.model.Item;
 
 public class Database {
 	Connection con;
@@ -26,5 +29,27 @@ public class Database {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+	}
+	
+	/*
+	 * @parameters
+	 * i -> an item that has just been created and now is being inserted into the db
+	 */
+	public void addItem(Item i) {
+		dbConnect();
+		String stmt = "insert into item(vendorId,name,price,quantity)values (?,?,?,?)";
+		try {
+			PreparedStatement p = con.prepareStatement(stmt);
+			p.setInt(1, i.getVendorId());
+			p.setString(2, i.getName());
+			p.setFloat(3, i.getPrice());
+			p.setInt(4, i.getQuantity());
+			p.executeUpdate();
+			System.out.println("Item successfully added to your menu!!!");
+		}catch(SQLException f) {
+			f.printStackTrace();
+		}
+		dbClose();
+		
 	}
 }
