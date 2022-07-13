@@ -13,6 +13,10 @@ public class VendorService {
 		db = new Database();
 	}
 
+	/*
+	 * KEVIN
+	 * Create Vendor Menu
+	 */
 	public void createAccount() {
 		Scanner sc = new Scanner(System.in);
 		
@@ -51,7 +55,6 @@ public class VendorService {
 		else {
 			System.out.println("Invalid Credentials");
 		}
-		System.out.println("DEBUG: Vendor Logging In");
 	}
 
 }

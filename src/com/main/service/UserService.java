@@ -14,7 +14,10 @@ public class UserService {
 		this.sc = new Scanner(System.in);
 	}
 
-	//Called after initial boot up of application
+	/*
+	 * KEVIN
+	 * Called after initial boot up of application
+	 */
 	public int displayMainAndReadInput() {
 		int input = -1;
 		
@@ -34,7 +37,10 @@ public class UserService {
 	}
 	
 	
-	//Called after choosing to create an account on main menu
+	/*
+	 * KEVIN
+	 * Called after choosing to create an account on main menu
+	 */
 	public void createAccount() {
 		while (true) {
 			userInput = this.displayCreateAndReadInput();
@@ -54,7 +60,10 @@ public class UserService {
 		}
 	}
 	
-	//Called after choosing to login on main menu
+	/*
+	 * KEVIN
+	 * Called after choosing to login on main menu
+	 */
 	public void login() { // KEVIN
 		while (true) {
 			userInput = this.displayLoginAndReadInput();
@@ -74,7 +83,10 @@ public class UserService {
 		}
 	}
 
-	//Signup Menu
+	/*
+	 * KEVIN
+	 * Signup Menu
+	 */
 	private int displayCreateAndReadInput() {
 		int input = -1;
 		
@@ -93,7 +105,10 @@ public class UserService {
 		return input;
 	}
 
-	//Login Menu
+	/*
+	 * KEVIN
+	 * Login Menu
+	 */
 	private int displayLoginAndReadInput() {
 		int input = -1;
 		
