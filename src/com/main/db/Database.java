@@ -44,7 +44,7 @@ public class Database {
 	 */
 	public void addItem(Item i) {
 		dbConnect();
-		String stmt = "insert into item(vendorId,name,price,quantity)values (?,?,?,?)";
+		String stmt = "insert into item(vendorId,name,price,quantity)values (?,?,?,?);";
 		try {
 			PreparedStatement p = con.prepareStatement(stmt);
 			p.setInt(1, i.getVendorId());
@@ -72,24 +72,24 @@ public class Database {
 	 * 
 	 * ********this function is no longer used as of the creation of fetchItems********
 	 */
-	public boolean validateItemOfVendor(String name, int vendorId) {
-		boolean yours = false;
-		dbConnect();
-		String stmt = "select * from item where name = ? and vendorId = ?";
-		try {
-			PreparedStatement p = con.prepareStatement(stmt);
-			p.setString(1, name);
-			p.setInt(2, vendorId);
-			ResultSet r = p.executeQuery();
-			if (r.next()) {
-				yours = true;
-			}
-		}catch(SQLException e) {
-			e.printStackTrace();
-		}
-		dbClose();
-		return yours;
-	}
+//	public boolean validateItemOfVendor(String name, int vendorId) {
+//		boolean yours = false;
+//		dbConnect();
+//		String stmt = "select * from item where name = ? and vendorId = ?;";
+//		try {
+//			PreparedStatement p = con.prepareStatement(stmt);
+//			p.setString(1, name);
+//			p.setInt(2, vendorId);
+//			ResultSet r = p.executeQuery();
+//			if (r.next()) {
+//				yours = true;
+//			}
+//		}catch(SQLException e) {
+//			e.printStackTrace();
+//		}
+//		dbClose();
+//		return yours;
+//	}
 	
 	/*James
 	 * 
@@ -99,7 +99,7 @@ public class Database {
 	 */
 	public void updateItem(Item i) {
 		dbConnect();
-		String stmt = "update item set name = ?, price = ?, quantity = ? where itemId = ?";
+		String stmt = "update item set name = ?, price = ?, quantity = ? where itemId = ?;";
 		try {
 			PreparedStatement p = con.prepareStatement(stmt);
 			p.setString(1, i.getName());
@@ -123,7 +123,7 @@ public class Database {
 	 */
 	public List<Item> fetchItems(int vendorId) {
 		dbConnect();
-		String stmt = "select * from item where vendorId = ?";
+		String stmt = "select * from item where vendorId = ?;";
 		List<Item> li = new ArrayList<>();
 		try {
 			PreparedStatement p = con.prepareStatement(stmt);
@@ -152,7 +152,7 @@ public class Database {
 	public void addVendor(Vendor vendor) {
 		dbConnect();
 		
-		String sql="insert into vendor(businessId,name,username,password) values (?,?,?,?)";
+		String sql="insert into vendor(businessId,name,username,password) values (?,?,?,?);";
 		 
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);

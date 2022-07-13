@@ -12,11 +12,11 @@ public class ItemService {
 	private Scanner sc;
 	
 	
-//	//test main method
-//	public static void main(String[] args) {
-//		ItemService is = new ItemService();
-//		is.editItem(1);
-//	}
+	//test main method
+	public static void main(String[] args) {
+		ItemService is = new ItemService();
+		is.editItem(1);
+	}
 	/*
 	 * @parameters 
 	 * vendorId will be taken from the current session as an input to this method 
