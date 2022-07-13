@@ -13,6 +13,10 @@ public class VendorService {
 		db = new Database();
 	}
 
+	/*
+	 * KEVIN
+	 * Create Vendor Menu
+	 */
 	public void createAccount() {
 		Scanner sc = new Scanner(System.in);
 		

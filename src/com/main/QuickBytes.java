@@ -3,6 +3,7 @@ package com.main;
 import com.main.service.UserService;
 
 public class QuickBytes {
+	
 	public static void main(String[] args) {
 		System.out.println("****Welcome to QuickBytes Canteen Service****"); 
 		

@@ -12,7 +12,7 @@ public class Order {
 		super();
 	}
 	
-	public Order(int orderId, int customerId, float totalPrice, String status, String orderTime, String endTime) {
+	public Order(int orderId, float totalPrice, String status, String orderTime, String endTime, int customerId) {
 		super();
 		
 		this.orderId = orderId;
