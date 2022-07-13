@@ -13,8 +13,6 @@ public class QuickBytes {
 		while (true) {
 			mainInput = uService.displayMainAndReadInput();
 			
-			// KEVIN
-			
 			// Option 1 - Login
 			if (mainInput == 1) {
 			uService.login(); //login

@@ -2,7 +2,10 @@ package com.main.db;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
+
+import com.main.model.Vendor;
 
 public class Database {
 	Connection con;
@@ -26,5 +29,26 @@ public class Database {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+	}
+
+	public void addVendor(Vendor vendor) {
+		dbConnect();
+		
+		String sql="insert into vendor(businessId,name,username,password) values (?,?,?,?)";
+		 
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, vendor.getBusinessId());
+			pstmt.setString(2, vendor.getName());
+			pstmt.setString(3, vendor.getUsername());
+			pstmt.setString(4, vendor.getPassword());
+			
+			pstmt.executeUpdate();
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		dbClose();
 	}
 }
