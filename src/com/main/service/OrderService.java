@@ -53,6 +53,21 @@ public class OrderService {
 	
 	/*
 	 * KEVIN
+	 * TO BE CALLED WHEN VENDOR ACCEPTS/DENIES AN ORDER
+	 * update order status & end time
+	 * @param order - Order being updated
+	 * @param status - new status of Order
+	 * @param endTime - new end time of Order (should have been null before)
+	 */
+	public void updateOrderStatus(Order order, String status, String endTime) {
+		Order newOrder = order;
+		newOrder.setStatus(status);
+		newOrder.setEndTime(endTime);
+		db.updateOrder(order, newOrder);
+	}
+	
+	/*
+	 * KEVIN
 	 * TO BE CALLED WHEN REMOVING AN ITEM FROM AN ORDER WHILE OTHER ITEMS EXIST IN THE ORDER
 	 * delete item from order
 	 * @param order - Order in which item is being removing
@@ -60,7 +75,13 @@ public class OrderService {
 	 */
 	public void deleteItemFromOrder(Order order, Item item) {
 		db.removeOrderItem(order,item);
+		
+		//remove cost of item from order
+		Order newOrder = order;
+		newOrder.setTotalPrice(order.getTotalPrice()-item.getPrice());
+		db.updateOrder(order,newOrder);
 	}
+	
 	/*
 	 * KEVIN
 	 * TO BE CALLED WHEN REMOVING THE LAST ITEM FROM AN ORDER AS A CUSTOMER
