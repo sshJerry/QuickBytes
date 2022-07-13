@@ -170,8 +170,22 @@ public class Database {
 		dbClose();
 	}
 
-
-
-
-
+	public boolean validateVendor(String username,String password) {
+		dbConnect();
+		String sql="select * from vendor where username=? and password=?";
+		boolean isPresent =false; 
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+		 
+			ResultSet rst = pstmt.executeQuery();
+			isPresent = rst.next();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		 dbClose();
+		return isPresent; 
+	}
 }
