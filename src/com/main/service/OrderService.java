@@ -50,4 +50,26 @@ public class OrderService {
 		db.updateOrder(order,newOrder);
 		db.addOrderItem(order, item);
 	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN REMOVING AN ITEM FROM AN ORDER WHILE OTHER ITEMS EXIST IN THE ORDER
+	 * delete item from order
+	 * @param order - Order in which item is being removing
+	 * @param item - Item the user is removing
+	 */
+	public void deleteItemFromOrder(Order order, Item item) {
+		db.removeOrderItem(order,item);
+	}
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN REMOVING THE LAST ITEM FROM AN ORDER AS A CUSTOMER
+	 * delete order + related item
+	 * @param order - Order in which item is being removing
+	 * @param item - Item the user is removing
+	 */
+	public void deleteOrder(Order order, Item item) {
+		db.removeOrderItem(order,item);
+		db.removeOrder(order);
+	}
 }
