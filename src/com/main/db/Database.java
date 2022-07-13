@@ -63,7 +63,7 @@ public class Database {
 		dbClose();
 	}
 	
-	/** VENDOR */
+	/** ORDER */
 	
 	/*
 	 * KEVIN
