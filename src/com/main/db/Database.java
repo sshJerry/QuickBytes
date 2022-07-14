@@ -380,4 +380,23 @@ public class Database {
 		}
 		dbClose();
 	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN A CUSTOMER DELETES ALL ITEMS FROM AN ORDER
+	 * before removeOrder() when applicable
+	 * @param order - order from which you use orderId
+	 */
+	public void removeOrderItems(Order order) {
+		dbConnect();
+		String sql="delete from order where orderId=?;";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, order.getOrderId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+	}
 }

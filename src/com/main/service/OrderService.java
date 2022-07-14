@@ -68,7 +68,7 @@ public class OrderService {
 	
 	/*
 	 * KEVIN
-	 * TO BE CALLED WHEN REMOVING AN ITEM FROM AN ORDER WHILE OTHER ITEMS EXIST IN THE ORDER
+	 * TO BE CALLED WHEN REMOVING AN ITEM FROM AN ORDER
 	 * delete item from order
 	 * @param order - Order in which item is being removing
 	 * @param item - Item the user is removing
@@ -84,13 +84,21 @@ public class OrderService {
 	
 	/*
 	 * KEVIN
-	 * TO BE CALLED WHEN REMOVING THE LAST ITEM FROM AN ORDER AS A CUSTOMER
-	 * delete order + related item
-	 * @param order - Order in which item is being removing
-	 * @param item - Item the user is removing
+	 * TO BE CALLED WHEN REMOVING ALL ITEMS FROM AN ORDER AS A CUSTOMER
+	 * delete order items
+	 * @param order - Order in which items are being removing
 	 */
-	public void deleteOrder(Order order, Item item) {
-		db.removeOrderItem(order,item);
+	public void deleteItemsFromOrder(Order order) {
+		db.removeOrderItems(order);
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED AFTER REMOVING THE LAST ITEM FROM AN ORDER AS A CUSTOMER
+	 * delete order obj
+	 * @param order - Order in which item is being removing
+	 */
+	public void deleteOrder(Order order) {
 		db.removeOrder(order);
 	}
 }
