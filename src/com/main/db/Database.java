@@ -10,8 +10,8 @@ import java.util.List;
 
 import com.main.model.Item;
 import com.main.model.Order;
+import com.main.model.OrderItem;
 import com.main.model.Vendor;
-import com.main.model.Customer;
 
 public class Database {
 	Connection con;
@@ -336,6 +336,31 @@ public class Database {
 	}
 	
 	/** ORDER_ITEM */
+	
+	public List<OrderItem> fetchOrderItems() {
+		dbConnect();
+		String sql = "select * from order_item;";
+		List<OrderItem> list = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()) {
+				int itemId = rst.getInt("itemId");
+				int orderId = rst.getInt("orderId");
+				
+				OrderItem oi = new OrderItem(orderId,itemId);
+				list.add(oi);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
 	
 	/*
 	 * KEVIN
