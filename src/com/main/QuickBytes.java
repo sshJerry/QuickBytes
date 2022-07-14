@@ -7,7 +7,6 @@ public class QuickBytes {
 		System.out.println("****Welcome to QuickBytes Canteen Service****"); 
 		
 		UserService uService = new UserService();
-		
 		int mainInput;
 		
 		//Main Menu
