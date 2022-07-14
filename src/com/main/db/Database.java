@@ -148,6 +148,32 @@ public class Database {
 		}
 		return li;
 	}
+	
+	/*
+	 * KEVIN
+	 * get an existing item by itemId
+	 * @param itemId - itemId of the Item data object you want to fetch
+	 */
+	public Item fetchItem(int itemId) {
+		dbConnect();
+		String sql = "select * from item where itemId=?;";
+		Item item = new Item();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, itemId);
+			ResultSet rst = pstmt.executeQuery();
+			rst.next(); 
+			
+			item = new Item(itemId,rst.getInt("vendorId"),rst.getString("name"),rst.getFloat("price"),rst.getInt("quantity"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return item;
+	}
 
 	/** VENDOR */
 	
@@ -234,7 +260,7 @@ public class Database {
 	 */
 	public List<Order> fetchOrders() {
 		dbConnect();
-		String sql = "select * from order;";
+		String sql = "select * from `order`;";
 		List<Order> list = new ArrayList<>();
 		
 		try {
@@ -337,6 +363,10 @@ public class Database {
 	
 	/** ORDER_ITEM */
 	
+	/*
+	 * KEVIN
+	 * get all existing order items
+	 */
 	public List<OrderItem> fetchOrderItems() {
 		dbConnect();
 		String sql = "select * from order_item;";
