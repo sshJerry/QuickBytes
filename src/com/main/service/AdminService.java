@@ -10,6 +10,7 @@ public class AdminService {
 	Scanner sc;
 	Database db;
 	
+	//login
 	public void login() {
 		sc= new Scanner(System.in);
 		db = new Database();
@@ -31,6 +32,7 @@ public class AdminService {
 		}
 	}
 	
+	//basic account create
 	public void createAccount() {
 		sc = new Scanner(System.in);
 		
@@ -51,13 +53,14 @@ public class AdminService {
 		db.addAdmin(admin);
 	}
 	
+	//admin menu
 	private int displayMenuAndReadInput() {
 		int input = -1;
 		
 		System.out.println("\nWhat would you like to do?");
 		System.out.println("1. Generate reports for a Vendor");
 		System.out.println("2. Add a new Admin");
-		System.out.println("0. Return to Role Selection Menu");
+		System.out.println("0. Return to Login/Create Account Menu");
 		
 		try {
 			input = sc.nextInt();
@@ -68,7 +71,7 @@ public class AdminService {
 		
 		return input;
 	}
-	
+	//admin choices
 	public void chooseOption() {
 		int input = displayMenuAndReadInput();
 		if (input == 1) {
