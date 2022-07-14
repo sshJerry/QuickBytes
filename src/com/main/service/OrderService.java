@@ -30,7 +30,8 @@ public class OrderService {
 		for (Order o : orders) {
 			if (o.getStatus() == order.getStatus() && 
 				o.getOrderTime() == order.getOrderTime() &&
-				o.getCustomerId() == order.getCustomerId()) {
+				o.getCustomerId() == order.getCustomerId() &&
+			o.getVendorId() == order.getVendorId()) {
 				//add OrderItem to newly made Order
 				db.addOrderItem(o, item);
 			}
@@ -45,7 +46,7 @@ public class OrderService {
 	 * @param item - Item being added to new order
 	 */
 	public void addItemToOrder(Order order, Item item) {
-		Order newOrder = new Order(order.getOrderId(),order.getTotalPrice()+item.getPrice(),order.getStatus(),order.getOrderTime(),order.getEndTime(),order.getCustomerId());
+		Order newOrder = new Order(order.getOrderId(),order.getTotalPrice()+item.getPrice(),order.getStatus(),order.getOrderTime(),order.getEndTime(),order.getCustomerId(),order.getVendorId());
 		
 		db.updateOrder(order,newOrder);
 		db.addOrderItem(order, item);

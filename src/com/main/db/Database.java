@@ -208,7 +208,7 @@ public class Database {
 	public void addOrder(Order order) {
 		dbConnect();
 		
-		String sql="insert into `Order`(totalPrice,status,orderTime,endTime,customerId) values (?,?,?,?,?);";
+		String sql="insert into `Order`(totalPrice,status,orderTime,endTime,customerId,vendorId) values (?,?,?,?,?,?);";
 		 
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -216,7 +216,8 @@ public class Database {
 			pstmt.setString(2, order.getStatus());
 			pstmt.setString(3, order.getOrderTime());
 			pstmt.setString(4, order.getEndTime());
-			pstmt.setInt(3, order.getCustomerId());
+			pstmt.setInt(5, order.getCustomerId());
+			pstmt.setInt(6, order.getVendorId());
 			
 			pstmt.executeUpdate();
 		
@@ -246,8 +247,9 @@ public class Database {
 				String orderTime = rst.getString("orderTime");
 				String endTime = rst.getString("endTime");
 				int customerId = rst.getInt("customerId");
+				int vendorId = rst.getInt("vendorId");
 				
-				Order o = new Order(orderId,totalPrice,status,orderTime, endTime,customerId);
+				Order o = new Order(orderId,totalPrice,status,orderTime,endTime,customerId,vendorId);
 				list.add(o);
 			}
 			
@@ -276,7 +278,7 @@ public class Database {
 			ResultSet rst = pstmt.executeQuery();
 			rst.next(); 
 			
-			order = new Order(orderId,rst.getFloat("totalPrice"),rst.getString("status"),rst.getString("orderTime"),rst.getString("endTime"),rst.getInt("customerId"));
+			order = new Order(orderId,rst.getFloat("totalPrice"),rst.getString("status"),rst.getString("orderTime"),rst.getString("endTime"),rst.getInt("customerId"),rst.getInt("vendorId"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -294,7 +296,7 @@ public class Database {
 	 */
 	public void updateOrder(Order order, Order newOrder) {
 		dbConnect();
-		String sql = "update `Order` set totalPrice=?, status=?, orderTime=?, endTime=?, customerId=? where orderId=?;";
+		String sql = "update `Order` set totalPrice=?, status=?, orderTime=?, endTime=?, customerId=?, vendorId=? where orderId=?;";
 		
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -303,7 +305,8 @@ public class Database {
 			pstmt.setString(3, newOrder.getOrderTime());
 			pstmt.setString(4, newOrder.getEndTime());
 			pstmt.setInt(5, newOrder.getCustomerId());
-			pstmt.setInt(6, order.getOrderId());
+			pstmt.setInt(6, newOrder.getVendorId());
+			pstmt.setInt(7, order.getOrderId());
 			
 			pstmt.executeUpdate();
 		} catch (SQLException e) {

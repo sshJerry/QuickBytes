@@ -7,12 +7,13 @@ public class Order {
 	private String orderTime; //Temporary until we get datetime
 	private String endTime; //Temporary until we get datetime
 	private int customerId;
+	private int vendorId;
 	
 	public Order() {
 		super();
 	}
 	
-	public Order(int orderId, float totalPrice, String status, String orderTime, String endTime, int customerId) {
+	public Order(int orderId, float totalPrice, String status, String orderTime, String endTime, int customerId, int vendorId) {
 		super();
 		
 		this.orderId = orderId;
@@ -21,10 +22,11 @@ public class Order {
 		this.orderTime = orderTime;
 		this.endTime = endTime;
 		this.customerId = customerId;
+		this.vendorId = vendorId;
 	}
 	
 	//Constructor without orderId for creating orders
-	public Order(int customerId, float totalPrice, String status, String orderTime, String endTime) {
+	public Order(int customerId, float totalPrice, String status, String orderTime, String endTime, int vendorId) {
 		super();
 		
 		this.customerId = customerId;
@@ -32,6 +34,7 @@ public class Order {
 		this.status = status;
 		this.orderTime = orderTime;
 		this.endTime = endTime;
+		this.vendorId = vendorId;
 	}
 	
 	public int getOrderId() {
@@ -69,6 +72,12 @@ public class Order {
 	}
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+	public int getVendorId() {
+		return vendorId;
+	}
+	public void setVendorId(int vendorId) {
+		this.vendorId = vendorId;
 	}
 	
 	@Override
