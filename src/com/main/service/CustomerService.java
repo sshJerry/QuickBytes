@@ -62,7 +62,7 @@ public class CustomerService {
 			
 			System.out.println("Enter your password");
 			String customerLoginPassword = sc.nextLine();
-			boolean isValidPassword = CustomerUtility.validatePassword(db.getAllCustomers(),customerLoginPassword);
+			boolean isValidPassword = CustomerUtility.validatePassword(db.getAllCustomers(),customerLoginPassword, customerLoginUsername);
 			if(!isValidPassword || !isValidUsername) {
 				System.out.println("Incorrect Credentials");
 			}

@@ -9,18 +9,14 @@ public class CustomerUtility {
 
 	public static boolean validateUsername(List<Customer> allCustomers, String customerLoginUsername) {
 		return allCustomers.stream().map(c->c.getUsername()).collect(Collectors.toList()).contains(customerLoginUsername);
-		/*boolean isValid = false;
-		for(Customer c: allCustomers) {
-			if(c.getUsername().equals(customerLoginUsername)) {
-				isValid = true;
-				break;
-			}
-		}
-		return isValid;*/
 	}
 
-	public static boolean validatePassword(List<Customer> allCustomers, String customerLoginPassword) {
-		return allCustomers.stream().map(c->c.getPassword()).collect(Collectors.toList()).contains(customerLoginPassword);
+	public static boolean validatePassword(List<Customer> allCustomers, String customerLoginPassword, String customerLoginUsername) {
+		return allCustomers.stream()
+				.filter(c->c.getUsername().equals(customerLoginUsername))
+				.map(c->c.getPassword())
+				.collect(Collectors.toList())
+				.contains(customerLoginPassword);
 	}
 	
 
