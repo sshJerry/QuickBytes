@@ -74,8 +74,5 @@ public class ItemService {
 		i.setVendorId(vendorId);
 		db.updateItem(i);
 	}
-	
-	public void createSet(int vendorId) {
-		
-	}
+
 }
