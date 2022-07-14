@@ -1,10 +1,12 @@
 package com.main;
 
+import java.sql.SQLException;
+
 import com.main.service.UserService;
 
 public class QuickBytes {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SQLException {
 		System.out.println("****Welcome to QuickBytes Canteen Service****"); 
 		
 		UserService uService = new UserService();

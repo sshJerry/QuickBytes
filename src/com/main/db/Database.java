@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.main.model.Item;
 import com.main.model.Order;
+import com.main.model.Set;
 import com.main.model.Vendor;
 import com.main.model.Customer;
 
@@ -317,23 +318,147 @@ public class Database {
 		
 		dbClose();
 	}
-
-	public boolean validateVendor(String username,String password) {
+	//jay to validate vendors credentials
+	public Boolean validateVendor(String username, String password) throws SQLException {
 		dbConnect();
-		String sql="select * from vendor where username=? and password=?";
-		boolean isPresent =false; 
-		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, username);
-			pstmt.setString(2, password);
+		String sql="select * from vendor";
+		PreparedStatement pstmt = con.prepareStatement(sql);
+		ResultSet  rst = pstmt.executeQuery();
+		boolean result=false;
+		while(rst.next()) {
+			if(username.equals(rst.getString("username"))) {
+				if (password.equals(rst.getString("password"))){
+					result=true;
+				}
+			}
+				
+			}
+			
+		return result;
+	}
+//jay fetch id of vendor based on username
+	public int fetchVendorID(String username) {
+			
+			dbConnect();
+			String sql="select vendorId from vendor where username=?";
+			PreparedStatement pstmt;
+			int id=-1;
+			try {
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, username);
+				ResultSet  rst = pstmt.executeQuery();
+					while(rst.next()) {
+						id=rst.getInt("vendorId");
+			}
+			}catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+				dbClose();
+				return id;
+		}
+
+	//jay to insert a new set
+	public void insertSet(Set set) {
+		dbConnect();
+		 String sql="insert into set(name, price, available, vendorid)"
+		 		+ "values (?,?,?,?)";
 		 
-			ResultSet rst = pstmt.executeQuery();
-			isPresent = rst.next();
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, set.getName());
+			pstmt.setFloat(2, set.getPrice());
+			pstmt.setInt(3, set.getAvailable());
+			pstmt.setInt(4, set.getVendorId());
+			
+			pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		 dbClose();
-		return isPresent; 
+		 
+		
+	}
+
+	//jay add item to item set
+	public void addItemToItemSet(int itemId, int setId) {
+		dbConnect();
+		 String sql="insert into item_set(setId, vendorId)"
+		 		+ "values (?,?)";
+		 
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, itemId);
+			pstmt.setInt(2, setId);
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	//jay fetch item id
+	public int fetchItemID(String name, int vendorId) {
+		dbConnect();
+		String sql="select itemId from Item where name=? and vendorId=?";
+		PreparedStatement pstmt;
+		int id=-1;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setInt(2, vendorId);
+			ResultSet  rst = pstmt.executeQuery();
+				while(rst.next()) {
+					id=rst.getInt("itemId");
+		}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			dbClose();
+			return id;
+	}
+
+	//jay fetch set id
+	public int fetchSetId(String name) {
+		dbConnect();
+		String sql="select setId from set where name=?";
+		PreparedStatement pstmt;
+		int id=-1;
+		try {
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, name);
+			ResultSet  rst = pstmt.executeQuery();
+				while(rst.next()) {
+					id=rst.getInt("setId");
+		}
+		}catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			dbClose();
+			return id;
+		
+	}
+
+//jay update item set
+	public void updateItemSet(Set set) {
+		dbConnect();
+		 String sql="update set name=?, set price=? , set available= ?";
+		 
+		 try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, set.getName());
+			pstmt.setFloat(2, set.getPrice());
+			pstmt.setInt(3, set.getAvailable());
+			
+			pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }

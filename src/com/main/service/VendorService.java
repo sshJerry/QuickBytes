@@ -1,8 +1,11 @@
 package com.main.service;
 
+import java.sql.SQLException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.main.db.Database;
+import com.main.model.Item;
 import com.main.model.Vendor;
 
 public class VendorService {
@@ -37,24 +40,177 @@ public class VendorService {
 		db.addVendor(vendor);
 	}
 	
-	public void login() {
+	//Jay- allow vendor to login
+	public void login() throws SQLException {
 		// TODO Auto-generated method stub
 		Scanner sc= new Scanner(System.in);
 		
-		System.out.print("Please enter your Username: ");
+		System.out.println("Please enter your Username: ");
 		String username=sc.next();
 		
-		System.out.print("Password: ");
+		System.out.println("Password: ");
 		String password=sc.next();
 		
 		
 		boolean isValidated=db.validateVendor(username, password);
+		
 		if(isValidated) {
 			System.out.println("Logged in");
+			displayVendorOptions(username);
 		}
 		else {
 			System.out.println("Invalid Credentials");
 		}
 	}
+	
+	//Jay- display vendor items
+	private void displayVendorOptions(String username) {
+		Scanner sc=new Scanner(System.in);
+		UserService userService=new UserService();
+		int input=-1;
+		
+		System.out.println("1: Display Menu Items");
+		System.out.println("2: Create Meal Set or Item");
+		System.out.println("3: View Orders");
+		System.out.println("0: Logout");
+		try {
+			input = sc.nextInt();
+			if (input==0) {
+				userService.displayMainAndReadInput();
+			}
+			
+			switch(input) {
+			
+			case 1:
+				
+				displayMenuItems(username);
+			
+			case 2:
+				
+				createMealSetOrItem(username);
+			
+			case 3:
+				
+				viewOrders(username);
+			}
+			
+		} catch (InputMismatchException ime) {
+			System.out.println("\nIncorrect Input Type. Please Try Again!\n");
+			sc.next();
+		}
+		
+		
+		
+		
+	}
+
+	private void viewOrders(String username) {
+		Scanner sc=new Scanner(System.in);
+		int id=db.fetchVendorID(username);
+		int input=-1;
+	
+		System.out.println("1: Accept Order");
+		System.out.println("2: Delete Order");
+		System.out.println("0: Back");
+		try {
+		    input = sc.nextInt();
+			if (input==0) {
+				displayVendorOptions(username);
+			}
+			
+			switch(input){
+			
+			case 1:
+				
+			
+			case 2:
+				
+				
+			}
+			
+		}
+		catch (InputMismatchException ime) {
+			System.out.println("\nIncorrect Input Type. Please Try Again!\n");
+			sc.next();
+		}
+		
+	}
+
+	//jay to allow a user to see and choose options to create a meal set or item
+	private void createMealSetOrItem(String username) {
+			Scanner sc=new Scanner(System.in);
+			ItemService itemService=new ItemService();
+			SetService setService=new SetService();
+			int id=db.fetchVendorID(username);
+			int input=-1;
+		
+			System.out.println("1: Create Meal Set");
+			System.out.println("2: Create Item");
+			System.out.println("0: Back");
+			try {
+			    input = sc.nextInt();
+				if (input==0) {
+					displayVendorOptions(username);
+				}
+				
+				switch(input){
+				
+				case 1:
+					setService.createMealSet(id);
+				
+				case 2:
+					itemService.createItem(id);
+					
+				}
+			}
+				catch (InputMismatchException ime) {
+					System.out.println("\nIncorrect Input Type. Please Try Again!\n");
+					sc.next();
+				}
+				
+
+	}
+		
+
+	
+//jay display menu items for vendor
+	public void displayMenuItems(String username) {
+		ItemService itemService=new ItemService();
+		SetService setService=new SetService();
+		int id=db.fetchVendorID(username);
+		Scanner sc=new Scanner(System.in);
+		int input=-1;
+	
+		System.out.println("1: Edit Item");
+		System.out.println("2: Edit Meal Set");
+		System.out.println("0: Back");
+		try {
+		    input = sc.nextInt();
+			if (input==0) {
+				displayVendorOptions(username);
+			}
+			
+			switch(input) {
+			
+			case 1:
+				
+				itemService.editItem(id);
+			
+			case 2:
+				
+				setService.editMealSet(id);
+			
+		}
+		}
+			catch (InputMismatchException ime) {
+				System.out.println("\nIncorrect Input Type. Please Try Again!\n");
+				sc.next();
+			}
+			
 
 }
+}
+
+	
+
+	
