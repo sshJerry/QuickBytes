@@ -62,7 +62,7 @@ public class ReportService {
 			pw.write("Vendor ID: " + vendor.getVendorId() + "\n");
 			pw.write("Business ID: " + vendor.getBusinessId() + "\n");
 			pw.write("Vendor Name: " + vendor.getName() + "\n\n");
-			pw.write("Total Profit: " + totalProfit + "\n");
+			pw.write("Total Profit: $" + totalProfit + "\n");
 			pw.write("Orders Completed: " + ordersCompleted + "\n");
 			pw.write("Items Sold: " + itemsSold + "\n");
 			pw.write("Most Popular Item: " + mostPopularItem + "\n");
