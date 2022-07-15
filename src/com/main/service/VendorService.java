@@ -35,10 +35,10 @@ public class VendorService {
 		
 		Vendor vendor = new Vendor(businessId,name,username,password);
 		db.addVendor(vendor);
+		sc.close();
 	}
 	
 	public void login() {
-		// TODO Auto-generated method stub
 		Scanner sc= new Scanner(System.in);
 		
 		System.out.print("Please enter your Username: ");
@@ -55,6 +55,7 @@ public class VendorService {
 		else {
 			System.out.println("Invalid Credentials");
 		}
+		sc.close();
 	}
 
 }
