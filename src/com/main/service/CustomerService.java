@@ -1,10 +1,13 @@
 package com.main.service;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.main.db.Database;
 import com.main.model.Customer;
+import com.main.model.Item;
+import com.main.model.Vendor;
 import com.utility.CustomerUtility;
 
 /*
@@ -26,13 +29,9 @@ public class CustomerService {
 	
 	// Jerry Implementation
 	public void createAccount() {
-		// TODO Auto-generated method stub
-		//Placeholder for customer creation menu
-		System.out.println("DEBUG: Customer Creating Account"); 
 		db.dbConnect();
-		System.out.println("DEBUG: Connectioned"); 
 		System.out.println("Enter first name");
-		sc.nextLine(); // leave in code
+		sc.nextLine();
 		String customerFirstName = sc.nextLine();
 		System.out.println("Enter last name");
 		String customerLastName = sc.nextLine();
@@ -71,6 +70,7 @@ public class CustomerService {
 			if(isValidUsername && isValidPassword) {
 				System.out.println("Signed in!");
 				loggedCustomerMainMenu(customerLoginUsername);
+				break;
 			}
 		}
 		// db.dbClose();  WHERE WILL IT CLOSE??
@@ -102,38 +102,51 @@ public class CustomerService {
 			switch(loggedCustomerMainMenuInput) {
 			case 1:
 				loggedCustomerVendorList(customerLoginUsername);
-			
+				break;
 			case 2:
 				loggedCustomerViewBalance(customerLoginUsername);
-			case 0: // Logout to the very first menu?
+				break;
+			case 0: // LOGOUT TO FIRST MENU
 				break;
 			default:
-				//Adjust wording here
-				System.out.println("INCORRECT INPUT");
+				System.out.println("Invalid Input, Try again");
 			}
 				
 		}catch(InputMismatchException i){
 			i.printStackTrace();
 		}
-		System.out.println("Thanks! Have a good day!");
 	}
 	
 	void loggedCustomerVendorList(String customerLoginUsername) {
+		int loggedCustomerVendorListInput;
 		System.out.println("\n****Vendor List****");
-		System.out.println("Press the number corresponding to the number");
-		// FetchAllVendors, might have to be created
-		//fetchVendors()
-		// Pass the index of Vendor picked
-		// Have a scanner int here. Store in var
+		System.out.println("Press the number corresponding to desired vendor");
+		List<Vendor> venderlist = db.fetchVendors();
+		int counter =1;
+		for(Vendor v:venderlist) {
+			System.out.println(counter + ": " +v.getName());
+			counter++;
+		}
+		loggedCustomerVendorListInput = sc.nextInt();
+		loggedCustomerVendorListInput--;
+		loggedCustomerListItemsFromVendor(customerLoginUsername, loggedCustomerVendorListInput);
 	}
-	void loggedCustomerListItemsFromVendor(String customerLoginUsername) {
+	void loggedCustomerListItemsFromVendor(String customerLoginUsername, int loggedCustomerVendorListInput ) {
+		System.out.println("\n****Item List****");
+		System.out.println("Press the number corresponding to desired vendor");
+		System.out.println("0: Back");
+		List<Item> il= db.fetchItems(loggedCustomerVendorListInput);
+		for(int i = 1; i < il.size(); i++) {
+			System.out.println(i+": "+il.get(i).getName() + "\t Price: " + il.get(i).getPrice());
+		}
 		
+	}
+	void loggedCustomerListItemsFromVendorAddItems() {
+		// JUMP loggedCustomerListItemsFromVendor()
 	}
 	
 	/*
 	 * Issues:
-	 * 		- customer.getBalance() is incorrect.
-	 * 		- Add to balance functionality missing
 	 * 		- Back to Main Menu functionality missing
 	 * */
 	void loggedCustomerViewBalance(String customerLoginUsername) {
@@ -141,7 +154,7 @@ public class CustomerService {
 		int loggedCustomerViewBalanceInput;
 		System.out.println("\n****View Balance****");
 		System.out.println("\nUser: " + customerLoginUsername +
-				"\tYour current balance is: " + customer.getBalance() + "\n");
+				"\tYour current balance is: " + logged.getBalance() + "\n");
 		System.out.println("Press the number corresponding to the desired action");
 		System.out.println("1: Add to balance");
 		System.out.println("0: Back to Main Menu");
@@ -150,20 +163,26 @@ public class CustomerService {
 		try {
 			loggedCustomerViewBalanceInput = sc.nextInt();
 			switch(loggedCustomerViewBalanceInput) {
+			case 0:
+				return;
 			case 1:
 				loggedCustomerAddBalance(customerLoginUsername);
+				break;
 			default:
-				// WANT TO JUST HERE or "GO BACK HERE"
 				break;
 			}
-				
-		}
-		catch(InputMismatchException i){
+		}catch(InputMismatchException i){
 			i.printStackTrace();
 		}
 	}
 	void loggedCustomerAddBalance(String customerLoginUsername) {
-		
-	};
+		Customer logged =  db.getCustomer(customerLoginUsername);
+		System.out.println("How much would you like to add?");
+		float customerAddBalance = sc.nextFloat();
+		logged.setBalance(customerAddBalance + logged.getBalance());
+		System.out.println("You've added $" + customerAddBalance + " to your balance");
+		System.out.println("Your balance is now: " + logged.getBalance());
+		// JUMP BACK TO <loggedCustomerMainMenu>
+	}
 	
 }
