@@ -39,11 +39,13 @@ Task Given:
   - Item Editing
   - Admin Creation
   - Admin Login
+  - Admin Menu
 Task Completed: 
   - Item Creation
   - Item Editing
   - Admin Creation
   - Admin Login
+  - Admin Menu
   
 2. Jay Harris <br />
 Task Given:
