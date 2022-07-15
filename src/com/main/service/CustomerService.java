@@ -73,7 +73,43 @@ public class CustomerService {
 			}
 		}
 		db.dbClose();
-		
 	}
+	
+	void loggedCustomerMainMenu() {
+		/*
+		 * Think about program flow, want to call to return method and
+		 * while(true) +break from this point on?
+		 * Call to a voided method and reach an end point?
+		 * 
+		 * It'll be necessary to pass along throughout program flow,
+		 * the username 
+		 * */
+		
+		//scanner
+		System.out.println("Press the number corresponding to the number");
+		System.out.println("1: List of Vendors");		
+		System.out.println("2: View Balance");
+		System.out.println("0: Logout");
+		
+		//Try
+			//switch case for input
+			//EX case 1: loggedCustomerVendorList(username);
+			//EX case 2: loggedCustomerViewBalance(username);
+			//EX case 3: displayMainAndReadInput() or Break;
+		
+		//Catch
+			//Exception:
+	}
+	void loggedCustomerVendorList() {
+		// FetchAllVendors, might have to be created
+		// Pass the index of Vendor picked
+		// Have a scanner int here. Store in var
+	}
+	void loggedCustomerVendorItemList() {
+		// This Method has a parameter for var.
+		// 		Pass var in List<Vendor?> sumthin = db.fetchItems(var)
+		//			When item is picked ->
+	}
+	
 	
 }
