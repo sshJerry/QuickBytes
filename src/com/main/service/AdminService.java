@@ -82,8 +82,7 @@ public class AdminService {
 	public void chooseOption() {
 		int input = displayMenuAndReadInput();
 		if (input == 1) {
-			//this is where the generate report method will go
-			chooseOption();
+			chooseVendor();
 		}
 		else if(input == 2) {
 			createAccount();

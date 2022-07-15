@@ -243,7 +243,7 @@ public class Database {
 	 */
 	public Vendor fetchVendor(int vendorId) {
 		dbConnect();
-		String sql = "select * from order where orderId=?;";
+		String sql = "select * from vendor where vendorId=?;";
 		Vendor vendor = new Vendor();
 		
 		try {
@@ -553,13 +553,10 @@ public class Database {
 	 * JAMES
 	 */
 	public boolean validateAdmin(String username, String password) {
-		System.out.println("1");
 		dbConnect();
 		String sql = "select * from admin where username=? and password=?";
 		boolean isPresent = false;
-		System.out.println("2");
 		try {
-			System.out.println("3");
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
