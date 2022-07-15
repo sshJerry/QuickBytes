@@ -20,7 +20,7 @@ public class SetService {
 		Scanner sc=new Scanner(System.in);
 
 		System.out.print("Please enter the set name: ");
-		String name=sc.next();
+		String name=sc.nextLine();
 		
 		System.out.print("Price: ");
 		float price=sc.nextFloat();
@@ -80,7 +80,7 @@ public class SetService {
 		int setId=db.fetchSetId(name);
 		Set set=new Set(newname, price, available, id);
 		db.updateItemSet(set, setId);
-		addItems(name, id);
+		addItems(newname, id);
 		
 	}
 
