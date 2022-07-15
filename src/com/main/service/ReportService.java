@@ -24,7 +24,7 @@ public class ReportService {
 		db = new Database();
 	}
 	
-//	PUT THIS IN ADMIN.JAVA DURING MERGE	
+//	PUT THIS IN ADMINSERVICE.JAVA DURING MERGE	
 //	/*
 //	 * KEVIN
 //	 * TO BE CALLED WHEN ADMIN PRESSES 1
