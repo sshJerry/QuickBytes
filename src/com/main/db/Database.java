@@ -150,6 +150,8 @@ public class Database {
 		return li;
 	}
 
+	/** VENDOR */
+	
 	/*
 	 * KEVIN
 	 * @param vendor - Vendor obj to be inserted
@@ -174,6 +176,10 @@ public class Database {
 		
 		dbClose();
 	}
+	
+	/*
+	 * JAY
+	 */
 	
 	/** ORDER */
 	
@@ -253,7 +259,7 @@ public class Database {
 			ResultSet rst = pstmt.executeQuery();
 			rst.next(); 
 			
-			Order o = new Order(orderId,rst.getFloat("totalPrice"),rst.getString("status"),rst.getString("orderTime"),rst.getString("endTime"),rst.getInt("customerId"));
+			order = new Order(orderId,rst.getFloat("totalPrice"),rst.getString("status"),rst.getString("orderTime"),rst.getString("endTime"),rst.getInt("customerId"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -288,6 +294,24 @@ public class Database {
 			e.printStackTrace();
 		}
 		
+		dbClose();
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN A CUSTOMER DELETES THE LAST ITEM OF AN ORDER
+	 * @param order - order being deleted
+	 */
+	public void removeOrder(Order order) {
+		dbConnect();
+		String sql="delete from order where id=?;";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, order.getOrderId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		dbClose();
 	}
 	
@@ -333,7 +357,7 @@ public class Database {
 			}
 				
 			}
-			
+		 dbClose();
 		return result;
 	}
 //jay fetch id of vendor based on username
@@ -377,7 +401,7 @@ public class Database {
 			e.printStackTrace();
 		}
 		 
-		
+		 dbClose();
 	}
 
 	//jay add item to item set
@@ -396,6 +420,7 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		 dbClose();
 		
 	}
 
@@ -459,6 +484,47 @@ public class Database {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+		 dbClose();
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN A CUSTOMER DELETES ANY ITEM FROM AN ORDER
+	 * before removeOrder() when applicable
+	 * @param order - order from which you use orderId
+	 * @param item - item from which you use itemId
+	 */
+	public void removeOrderItem(Order order, Item item) {
+		dbConnect();
+		String sql="delete from order where itemId=? and orderId=? limit 1;";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, item.getItemId());
+			pstmt.setInt(2, order.getOrderId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN A CUSTOMER DELETES ALL ITEMS FROM AN ORDER
+	 * before removeOrder() when applicable
+	 * @param order - order from which you use orderId
+	 */
+	public void removeOrderItems(Order order) {
+		dbConnect();
+		String sql="delete from order where orderId=?;";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, order.getOrderId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+
 	}
 }
