@@ -1,14 +1,21 @@
 package com.main.service;
 
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.main.db.Database;
 import com.main.model.Admin;
+import com.main.model.Vendor;
 
 public class AdminService {
 	Scanner sc;
 	Database db;
+	ReportService rs;
+	
+	{
+		rs = new ReportService();
+	}
 	
 	//login
 	public void login() {
@@ -75,12 +82,64 @@ public class AdminService {
 	public void chooseOption() {
 		int input = displayMenuAndReadInput();
 		if (input == 1) {
-			//this is where the generate report method will go
-			chooseOption();
+			chooseVendor();
 		}
 		else if(input == 2) {
 			createAccount();
 			chooseOption();
+		}
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN ADMIN PRESSES 1
+	 */
+	public void chooseVendor() {
+		int input = displayVendorMenuAndReadInput();
+		
+		if (input == 0) {
+			chooseOption();
+		} else {
+			rs.generateGeneralReport(db.fetchVendor(input)); //generate report from ReportService
+		}	
+		
+	};
+	
+	/*
+	 * KEVIN
+	 * display vendors as a menu
+	 */
+	public int displayVendorMenuAndReadInput() {
+		int input = -1;
+		boolean validInput = false;
+		
+		System.out.println("\nChoose a Vendor: ");
+		
+		List<Vendor> vendors = db.fetchVendors();
+		for (Vendor v : vendors) {
+			System.out.println(v.getVendorId() + ". " + v.getName());
+		}
+		
+		System.out.println("0. Exit");
+		try {
+			input = sc.nextInt();
+		} catch (InputMismatchException ime) {
+			System.out.println("\nIncorrect Input Type Detected!\n");
+			sc.next();
+		}
+		
+		//validate if vendor exists
+		for (Vendor v : vendors) {
+			if (input == v.getVendorId()) {
+				validInput = true;
+			}
+		}
+		
+		if (validInput) {
+			return input;
+		} else {
+			System.out.println("\nVendor ID Not Detected!\n");
+			return 0;
 		}
 	}
 }

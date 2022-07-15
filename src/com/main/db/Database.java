@@ -10,6 +10,7 @@ import java.util.List;
 
 import com.main.model.Item;
 import com.main.model.Order;
+import com.main.model.OrderItem;
 import com.main.model.Vendor;
 import com.main.model.Admin;
 import com.main.model.Customer;
@@ -150,10 +151,36 @@ public class Database {
 		}
 		return li;
 	}
+	
+	/*
+	 * KEVIN
+	 * get an existing item by itemId
+	 * @param itemId - itemId of the Item data object you want to fetch
+	 */
+	public Item fetchItem(int itemId) {
+		dbConnect();
+		String sql = "select * from item where itemId=?;";
+		Item item = new Item();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, itemId);
+			ResultSet rst = pstmt.executeQuery();
+			rst.next(); 
+			
+			item = new Item(itemId,rst.getInt("vendorId"),rst.getString("name"),rst.getFloat("price"),rst.getInt("quantity"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return item;
+	}
 
 	/*
 	 * KEVIN
-	 * 
+	 * insert a vendor obj without vendorId into db
 	 * @param vendor - Vendor obj to be inserted
 	 */
 	public void addVendor(Vendor vendor) {
@@ -176,27 +203,106 @@ public class Database {
 
 		dbClose();
 	}
-
+	
+	/*
+	 * KEVIN
+	 * get all existing vendors
+	 */
+	public List<Vendor> fetchVendors() {
+		dbConnect();
+		String sql = "select * from vendor;";
+		List<Vendor> list = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()) {
+				int vendorId = rst.getInt("vendorId");
+				int businessId = rst.getInt("businessId");
+				String name = rst.getString("name");
+				String username = rst.getString("username");
+				String password = rst.getString("password");
+				
+				Vendor v = new Vendor(vendorId,businessId,name,username,password);
+				list.add(v);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
+	
+	/*
+	 * KEVIN
+	 * get an existing vendor by vendorId
+	 * @param vendorId - vendorId of the Vendor data object you want to fetch
+	 */
+	public Vendor fetchVendor(int vendorId) {
+		dbConnect();
+		String sql = "select * from vendor where vendorId=?;";
+		Vendor vendor = new Vendor();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, vendorId);
+			ResultSet rst = pstmt.executeQuery();
+			rst.next(); 
+			
+			vendor = new Vendor(vendorId,rst.getInt("businessId"),rst.getString("name"),rst.getString("username"),rst.getString("password"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return vendor;
+	}
+	
+	/*
+	 * JAY
+	 */
+	public boolean validateVendor(String username,String password) {
+		dbConnect();
+		String sql = "select * from vendor where username=? and password=?";
+		boolean isPresent =false; 
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+		 
+			ResultSet rst = pstmt.executeQuery();
+			isPresent = rst.next();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return isPresent; 
+	}
+	
 	/** ORDER */
 
 	/*
-	 * KEVIN TO BE CALLED WHEN CUSTOMER ADDS THEIR FIRST ITEM FROM A VENDOR
-	 * 
+	 * KEVIN 
+	 * TO BE CALLED WHEN CUSTOMER ADDS THEIR FIRST ITEM FROM A VENDOR
 	 * @param order - Order object to be inserted
 	 */
 	public void addOrder(Order order) {
-		dbConnect();
-
-		String sql = "insert into `Order`(totalPrice,status,orderTime,endTime,customerId) values (?,?,?,?,?);";
-
+		dbConnect();		
+		String sql="insert into `Order`(totalPrice,status,orderTime,endTime,customerId,vendorId) values (?,?,?,?,?,?);";
+		 
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setDouble(1, order.getTotalPrice());
 			pstmt.setString(2, order.getStatus());
 			pstmt.setString(3, order.getOrderTime());
 			pstmt.setString(4, order.getEndTime());
-			pstmt.setInt(3, order.getCustomerId());
-
+			pstmt.setInt(5, order.getCustomerId());
+			pstmt.setInt(6, order.getVendorId());
 			pstmt.executeUpdate();
 
 		} catch (SQLException e) {
@@ -207,11 +313,12 @@ public class Database {
 	}
 
 	/*
-	 * KEVIN get all existing orders
+	 * KEVIN 
+	 * get all existing orders
 	 */
 	public List<Order> fetchOrders() {
 		dbConnect();
-		String sql = "select * from order;";
+		String sql = "select * from `order`;";
 		List<Order> list = new ArrayList<>();
 
 		try {
@@ -224,8 +331,9 @@ public class Database {
 				String orderTime = rst.getString("orderTime");
 				String endTime = rst.getString("endTime");
 				int customerId = rst.getInt("customerId");
-
-				Order o = new Order(orderId, totalPrice, status, orderTime, endTime, customerId);
+				int vendorId = rst.getInt("vendorId");
+				
+				Order o = new Order(orderId,totalPrice,status,orderTime,endTime,customerId,vendorId);
 				list.add(o);
 			}
 
@@ -239,22 +347,21 @@ public class Database {
 	}
 
 	/*
-	 * KEVIN get an existing order by orderId
-	 * 
+	 * KEVIN 
+	 * get an existing order by orderId
 	 * @param orderId - orderId of the Order data object you want to fetch
 	 */
 	public Order fetchOrder(int orderId) {
 		dbConnect();
-		String sql = "select * from order where orderId=?;";
+		String sql = "select * from `order` where orderId=?;";
 		Order order = new Order();
 
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, orderId);
 			ResultSet rst = pstmt.executeQuery();
-			rst.next();
-
-			order = new Order(orderId,rst.getFloat("totalPrice"),rst.getString("status"),rst.getString("orderTime"),rst.getString("endTime"),rst.getInt("customerId"));
+			rst.next(); 
+			order = new Order(orderId,rst.getFloat("totalPrice"),rst.getString("status"),rst.getString("orderTime"),rst.getString("endTime"),rst.getInt("customerId"),rst.getInt("vendorId"));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -263,18 +370,51 @@ public class Database {
 		dbClose();
 		return order;
 	}
+	
+	/*
+	 * KEVIN
+	 * get existing orders by vendorId
+	 * @param vendorId - vendorId of the Order data object you want to fetch
+	 */
+	public List<Order> fetchOrders(int vendorId) {
+		dbConnect();
+		String sql = "select * from `order` where vendorId=?;";
+		List<Order> list = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, vendorId);
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()) {
+				int orderId = rst.getInt("orderId");
+				float totalPrice = rst.getFloat("totalPrice");
+				String status = rst.getString("status");
+				String orderTime = rst.getString("orderTime");
+				String endTime = rst.getString("endTime");
+				int customerId = rst.getInt("customerId");
+				
+				Order o = new Order(orderId,totalPrice,status,orderTime,endTime,customerId,vendorId);
+				list.add(o);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
 
 	/*
-	 * KEVIN update an existing Order with new Order object's attributes
-	 * 
+	 * KEVIN 
+	 * update an existing Order with new Order object's attributes
 	 * @param order - old Order obj to be updated
-	 * 
 	 * @param newOrder - new Order obj whose values we are updating order with
 	 */
 	public void updateOrder(Order order, Order newOrder) {
 		dbConnect();
-		String sql = "update `Order` set totalPrice=?, status=?, orderTime=?, endTime=?, customerId=? where orderId=?;";
-
+		String sql = "update `Order` set totalPrice=?, status=?, orderTime=?, endTime=?, customerId=?, vendorId=? where orderId=?;";
+		
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setFloat(1, newOrder.getTotalPrice());
@@ -282,8 +422,8 @@ public class Database {
 			pstmt.setString(3, newOrder.getOrderTime());
 			pstmt.setString(4, newOrder.getEndTime());
 			pstmt.setInt(5, newOrder.getCustomerId());
-			pstmt.setInt(6, order.getOrderId());
-
+			pstmt.setInt(6, newOrder.getVendorId());
+			pstmt.setInt(7, order.getOrderId());
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -292,15 +432,61 @@ public class Database {
 
 		dbClose();
 	}
-
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN A CUSTOMER DELETES THE LAST ITEM OF AN ORDER
+	 * @param order - order being deleted
+	 */
+	public void removeOrder(Order order) {
+		dbConnect();
+		String sql="delete from `order` where id=?;";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, order.getOrderId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+	}
+	
 	/** ORDER_ITEM */
 
 	/*
-	 * KEVIN TO BE CALLED WHEN A CUSTOMER ADDS ANY ITEM FROM A VENDOR after
-	 * addOrder() when applicable
-	 * 
+	 * KEVIN
+	 * get all existing order items
+	 */
+	public List<OrderItem> fetchOrderItems() {
+		dbConnect();
+		String sql = "select * from order_item;";
+		List<OrderItem> list = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()) {
+				int itemId = rst.getInt("itemId");
+				int orderId = rst.getInt("orderId");
+				
+				OrderItem oi = new OrderItem(orderId,itemId);
+				list.add(oi);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN A CUSTOMER ADDS ANY ITEM FROM A VENDOR
+	 * after addOrder() when applicable
 	 * @param order - order from which you use orderId
-	 * 
 	 * @param item - item from which you use itemId
 	 */
 	public void addOrderItem(Order order, Item item) {
@@ -330,7 +516,7 @@ public class Database {
 	 */
 	public void removeOrderItem(Order order, Item item) {
 		dbConnect();
-		String sql="delete from order where itemId=? and orderId=? limit 1;";
+		String sql="delete from order_item where itemId=? and orderId=? limit 1;";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, item.getItemId());
@@ -350,7 +536,7 @@ public class Database {
 	 */
 	public void removeOrderItems(Order order) {
 		dbConnect();
-		String sql="delete from order where orderId=?;";
+		String sql="delete from order_item where orderId=?;";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, order.getOrderId());
@@ -361,33 +547,16 @@ public class Database {
 		dbClose();
 	}
 
-	public boolean validateVendor(String username, String password) {
-		dbConnect();
-		String sql = "select * from vendor where username=? and password=?";
-		boolean isPresent = false;
-		try {
-			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, username);
-			pstmt.setString(2, password);
-
-			ResultSet rst = pstmt.executeQuery();
-			isPresent = rst.next();
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		dbClose();
-		return isPresent;
-	}
-
+	/** ADMIN */
+	
+	/*
+	 * JAMES
+	 */
 	public boolean validateAdmin(String username, String password) {
-		System.out.println("1");
 		dbConnect();
 		String sql = "select * from admin where username=? and password=?";
 		boolean isPresent = false;
-		System.out.println("2");
 		try {
-			System.out.println("3");
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, username);
 			pstmt.setString(2, password);
