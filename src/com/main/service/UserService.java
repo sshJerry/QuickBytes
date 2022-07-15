@@ -8,6 +8,7 @@ public class UserService {
 	private Scanner sc;
 	CustomerService cService = new CustomerService();
 	VendorService vService = new VendorService();
+	AdminService aService = new AdminService();
 	int userInput;
 	
 	//Anonymous block to initialize Scanner
@@ -76,12 +77,11 @@ public class UserService {
 			
 			// Option 2 - Vendor
 			if (userInput == 2) {
-				try {
-					vService.login();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
+				vService.login(); 
+			}
+			//Option 3 - Admin
+			if (userInput == 3) {
+				aService.login();
 			}
 			
 			// Option 0 - Exit
@@ -121,6 +121,7 @@ public class UserService {
 		System.out.println("\nPlease choose to login as a Customer or Vendor:");
 		System.out.println("1. Customer");
 		System.out.println("2. Vendor");
+		System.out.println("3. Admin");
 		System.out.println("0. Return to Login/Signup Menu");
 		
 		try {

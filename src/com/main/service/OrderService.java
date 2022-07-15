@@ -9,6 +9,7 @@ import com.main.model.Order;
 
 public class OrderService {
 	Database db;
+	private Scanner sc;
 	
 	//Anonymous block initializing database for CRUD methods
 	{
@@ -30,7 +31,8 @@ public class OrderService {
 		for (Order o : orders) {
 			if (o.getStatus() == order.getStatus() && 
 				o.getOrderTime() == order.getOrderTime() &&
-				o.getCustomerId() == order.getCustomerId()) {
+				o.getCustomerId() == order.getCustomerId() &&
+			o.getVendorId() == order.getVendorId()) {
 				//add OrderItem to newly made Order
 				db.addOrderItem(o, item);
 			}
@@ -45,7 +47,7 @@ public class OrderService {
 	 * @param item - Item being added to new order
 	 */
 	public void addItemToOrder(Order order, Item item) {
-		Order newOrder = new Order(order.getOrderId(),order.getTotalPrice()+item.getPrice(),order.getStatus(),order.getOrderTime(),order.getEndTime(),order.getCustomerId());
+		Order newOrder = new Order(order.getOrderId(),order.getTotalPrice()+item.getPrice(),order.getStatus(),order.getOrderTime(),order.getEndTime(),order.getCustomerId(),order.getVendorId());
 		
 		db.updateOrder(order,newOrder);
 		db.addOrderItem(order, item);
@@ -101,4 +103,43 @@ public class OrderService {
 	public void deleteOrder(Order order) {
 		db.removeOrder(order);
 	}
+
+	//jay to accept order
+	public void acceptOrder(List<Order> orders) {
+		for (int i=0; i<orders.size(); i++) {
+			if (orders.get(i).getStatus().equalsIgnoreCase("in_progress") || orders.get(i).getStatus().equalsIgnoreCase("pending")) {
+				System.out.print(orders.get(i).getOrderId()+ ", ");
+			}
+		}
+		System.out.print("Enter OrderId: ");
+		int orderId=sc.nextInt();
+		
+		for (int i=0; i<orders.size(); i++) {
+			if (orders.get(i).getOrderId()==orderId) {
+				updateOrderStatus(orders.get(i), "Accepted", "Now");
+			}
+		}
+		
+	}
+	
+	//jay to delete order
+
+	public void deleteOrder(List<Order> orders) {
+		for (int i=0; i<orders.size(); i++) {
+			if (orders.get(i).getStatus().equalsIgnoreCase("in_progress") || orders.get(i).getStatus().equalsIgnoreCase("pending")) {
+				System.out.print(orders.get(i).getOrderId()+ ", ");
+			}
+		}
+		System.out.print("Enter OrderId: ");
+		int orderId=sc.nextInt();
+		
+		for (int i=0; i<orders.size(); i++) {
+			if (orders.get(i).getOrderId()==orderId) {
+				db.removeOrder(orders.get(i));
+			}
+		}
+		
+	}
+
+
 }

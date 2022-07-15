@@ -1,11 +1,14 @@
 package com.main.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 import java.util.Scanner;
 
 import com.main.db.Database;
 import com.main.model.Item;
+import com.main.model.Order;
 import com.main.model.Vendor;
 
 public class VendorService {
@@ -38,11 +41,12 @@ public class VendorService {
 		
 		Vendor vendor = new Vendor(businessId,name,username,password);
 		db.addVendor(vendor);
+		sc.close();
 	}
 	
+
 	//Jay- allow vendor to login
-	public void login() throws SQLException {
-		// TODO Auto-generated method stub
+	public void login() {
 		Scanner sc= new Scanner(System.in);
 		
 		System.out.println("Please enter your Username: ");
@@ -52,15 +56,21 @@ public class VendorService {
 		String password=sc.next();
 		
 		
-		boolean isValidated=db.validateVendor(username, password);
-		
-		if(isValidated) {
+		boolean isValidated=false;
+		try {
+			isValidated = db.validateVendor(username, password);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(isValidated==true) {
 			System.out.println("Logged in");
 			displayVendorOptions(username);
 		}
 		else {
 			System.out.println("Invalid Credentials");
 		}
+		sc.close();
 	}
 	
 	//Jay- display vendor items
@@ -112,6 +122,8 @@ public class VendorService {
 		System.out.println("1: Accept Order");
 		System.out.println("2: Delete Order");
 		System.out.println("0: Back");
+		List<Order> orders=new ArrayList<>();
+		OrderService orderService=new OrderService();
 		try {
 		    input = sc.nextInt();
 			if (input==0) {
@@ -121,10 +133,12 @@ public class VendorService {
 			switch(input){
 			
 			case 1:
-				
+				orders=db.fetchOrders(id);
+				orderService.acceptOrder(orders);
 			
 			case 2:
-				
+				orders=db.fetchOrders(id);
+				orderService.deleteOrder(orders);
 				
 			}
 			

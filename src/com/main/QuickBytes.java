@@ -18,12 +18,7 @@ public class QuickBytes {
 			
 			// Option 1 - Login
 			if (mainInput == 1) {
-			try {
-				uService.login();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} //login
+			uService.login();
 			}
 			
 			// Option 2 - Create Account
