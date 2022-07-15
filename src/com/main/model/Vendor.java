@@ -6,18 +6,31 @@ public class Vendor {
 	private String name;
 	private String username;
 	private String password;
+	
 	public Vendor() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public Vendor(int vendorId, int businessId, String name, String username, String password) {
 		super();
+		
 		this.vendorId = vendorId;
 		this.businessId = businessId;
 		this.name = name;
 		this.username = username;
 		this.password = password;
 	}
+	
+	//Constructor without vendorId for creating vendors
+	public Vendor(int businessId, String name, String username, String password) {
+		super();
+		
+		this.businessId = businessId;
+		this.name = name;
+		this.username = username;
+		this.password = password;
+	}
+	
 	public int getVendorId() {
 		return vendorId;
 	}
@@ -48,6 +61,7 @@ public class Vendor {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	
 	@Override
 	public String toString() {
 		return "Vendor [vendorId=" + vendorId + ", businessId=" + businessId + ", name=" + name + ", username="

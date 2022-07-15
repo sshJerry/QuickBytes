@@ -7,6 +7,7 @@ public class UserService {
 	private Scanner sc;
 	CustomerService cService = new CustomerService();
 	VendorService vService = new VendorService();
+	AdminService aService = new AdminService();
 	int userInput;
 	
 	//Anonymous block to initialize Scanner
@@ -14,7 +15,10 @@ public class UserService {
 		this.sc = new Scanner(System.in);
 	}
 
-	//Called after initial boot up of application
+	/*
+	 * KEVIN
+	 * Called after initial boot up of application
+	 */
 	public int displayMainAndReadInput() {
 		int input = -1;
 		
@@ -34,12 +38,13 @@ public class UserService {
 	}
 	
 	
-	//Called after choosing to create an account on main menu
+	/*
+	 * KEVIN
+	 * Called after choosing to create an account on main menu
+	 */
 	public void createAccount() {
 		while (true) {
 			userInput = this.displayCreateAndReadInput();
-			
-			// KEVIN
 			
 			// Option 1 - Customer
 			if (userInput == 1) {
@@ -56,7 +61,10 @@ public class UserService {
 		}
 	}
 	
-	//Called after choosing to login on main menu
+	/*
+	 * KEVIN
+	 * Called after choosing to login on main menu
+	 */
 	public void login() { // KEVIN
 		while (true) {
 			userInput = this.displayLoginAndReadInput();
@@ -70,13 +78,20 @@ public class UserService {
 			if (userInput == 2) {
 				vService.login(); 
 			}
+			//Option 3 - Admin
+			if (userInput == 3) {
+				aService.login();
+			}
 			
 			// Option 0 - Exit
 			break;
 		}
 	}
 
-	//Signup Menu
+	/*
+	 * KEVIN
+	 * Signup Menu
+	 */
 	private int displayCreateAndReadInput() {
 		int input = -1;
 		
@@ -95,13 +110,17 @@ public class UserService {
 		return input;
 	}
 
-	//Login Menu
+	/*
+	 * KEVIN
+	 * Login Menu
+	 */
 	private int displayLoginAndReadInput() {
 		int input = -1;
 		
 		System.out.println("\nPlease choose to login as a Customer or Vendor:");
 		System.out.println("1. Customer");
 		System.out.println("2. Vendor");
+		System.out.println("3. Admin");
 		System.out.println("0. Return to Login/Signup Menu");
 		
 		try {
