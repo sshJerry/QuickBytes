@@ -7,6 +7,7 @@ import java.util.Scanner;
 import com.main.db.Database;
 import com.main.model.Customer;
 import com.main.model.Item;
+import com.main.model.Order;
 import com.main.model.Vendor;
 import com.utility.CustomerUtility;
 
@@ -19,11 +20,13 @@ public class CustomerService {
 	Database db;
 	private Scanner sc;
 	Customer customer = new Customer();
+	OrderService os;
 	
 	//Anonymous block initializing database for CRUD methods
 	{
 		db = new Database();
 		sc = new Scanner(System.in);
+
 		
 	}
 	
@@ -129,20 +132,46 @@ public class CustomerService {
 		}
 		loggedCustomerVendorListInput = sc.nextInt();
 		loggedCustomerVendorListInput--;
-		loggedCustomerListItemsFromVendor(customerLoginUsername, loggedCustomerVendorListInput);
+		loggedCustomerListItemsFromVendor(customerLoginUsername, loggedCustomerVendorListInput, true);
 	}
-	void loggedCustomerListItemsFromVendor(String customerLoginUsername, int loggedCustomerVendorListInput ) {
+	void loggedCustomerListItemsFromVendor(String customerLoginUsername, int loggedCustomerVendorListInput, boolean firstPass) {
 		System.out.println("\n****Item List****");
 		System.out.println("Press the number corresponding to desired vendor");
-		System.out.println("0: Back");
+		//System.out.println("0: Back");
 		List<Item> il= db.fetchItems(loggedCustomerVendorListInput);
 		for(int i = 1; i < il.size(); i++) {
 			System.out.println(i+": "+il.get(i).getName() + "\t Price: " + il.get(i).getPrice());
 		}
+		int iId = sc.nextInt();
+		Order itemO = new Order();
+		Item itemI = db.fetchItem(il.get(iId-1).getItemId());
+		OrderService itemOS = new OrderService();
+		if (firstPass == true){
+			itemOS.createOrder(itemO, itemI);
+			firstPass = false;
+		}
+		else {
+			itemOS.addItemToOrder(itemO, itemI);
+		}
+		loggedCustomerListItemsFromVendorAddItems(customerLoginUsername,iId,itemO,firstPass);
 		
 	}
-	void loggedCustomerListItemsFromVendorAddItems() {
-		// JUMP loggedCustomerListItemsFromVendor()
+	void loggedCustomerListItemsFromVendorAddItems(String customerLoginUsername, int vendorId, Order order, boolean firstPass) {
+		System.out.println("Item successfully added to order!\n\n Press 1 to add more items\nPress 0 to submit your order");
+		int choice = sc.nextInt();
+		
+		if (choice == 1) {
+			//return to other function recursively
+			return;
+		}
+		else if (choice == 0) {
+			OrderService os = new OrderService();
+			os.updateOrderStatus(order,"pending", "later");
+		}
+		else {
+			System.out.println("that was not an option, please choose either 1 or 0");
+			loggedCustomerListItemsFromVendorAddItems(customerLoginUsername,vendorId,order,firstPass);
+		}
 	}
 	
 	/*
