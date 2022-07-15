@@ -65,7 +65,7 @@ public class UserService {
 	 * KEVIN
 	 * Called after choosing to login on main menu
 	 */
-	public void login() throws SQLException { // KEVIN
+	public void login()  { // KEVIN
 		while (true) {
 			userInput = this.displayLoginAndReadInput();
 	
@@ -76,7 +76,12 @@ public class UserService {
 			
 			// Option 2 - Vendor
 			if (userInput == 2) {
-				vService.login(); 
+				try {
+					vService.login();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} 
 			}
 			
 			// Option 0 - Exit

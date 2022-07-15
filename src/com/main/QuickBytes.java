@@ -6,7 +6,7 @@ import com.main.service.UserService;
 
 public class QuickBytes {
 	
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args)  {
 		System.out.println("****Welcome to QuickBytes Canteen Service****"); 
 		
 		UserService uService = new UserService();
@@ -18,7 +18,12 @@ public class QuickBytes {
 			
 			// Option 1 - Login
 			if (mainInput == 1) {
-			uService.login(); //login
+			try {
+				uService.login();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} //login
 			}
 			
 			// Option 2 - Create Account

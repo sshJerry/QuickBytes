@@ -7,14 +7,7 @@ public class Set {
 	private float price;
 	private int available;
 	private int vendorId;
-	public Set(int setId, String name, float price, int available, int vendorId) {
-		super();
-		this.setId = setId;
-		this.name = name;
-		this.price = price;
-		this.available = available;
-		this.vendorId = vendorId;
-	}
+
 	public int getSetId() {
 		return setId;
 	}
@@ -28,6 +21,16 @@ public class Set {
 		this.available = available;
 		this.vendorId = vendorId;
 	}
+	
+	public Set(int setId, String name, float price, int available, int vendorId) {
+		super();
+		this.setId = setId;
+		this.name = name;
+		this.price = price;
+		this.available = available;
+		this.vendorId = vendorId;
+	}
+	
 	public String getName() {
 		return name;
 	}
