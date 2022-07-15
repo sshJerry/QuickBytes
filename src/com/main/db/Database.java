@@ -203,6 +203,64 @@ public class Database {
 	}
 	
 	/*
+	 * KEVIN
+	 * get all existing vendors
+	 */
+	public List<Vendor> fetchVendors() {
+		dbConnect();
+		String sql = "select * from vendor;";
+		List<Vendor> list = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()) {
+				int vendorId = rst.getInt("vendorId");
+				int businessId = rst.getInt("businessId");
+				String name = rst.getString("name");
+				String username = rst.getString("username");
+				String password = rst.getString("password");
+				
+				Vendor v = new Vendor(vendorId,businessId,name,username,password);
+				list.add(v);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
+	
+	/*
+	 * KEVIN
+	 * get an existing vendor by vendorId
+	 * @param vendorId - vendorId of the Vendor data object you want to fetch
+	 */
+	public Vendor fetchVendor(int vendorId) {
+		dbConnect();
+		String sql = "select * from order where orderId=?;";
+		Vendor vendor = new Vendor();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, vendorId);
+			ResultSet rst = pstmt.executeQuery();
+			rst.next(); 
+			
+			vendor = new Vendor(vendorId,rst.getInt("businessId"),rst.getString("name"),rst.getString("username"),rst.getString("password"));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return vendor;
+	}
+	
+	/*
 	 * JAY
 	 */
 	public boolean validateVendor(String username,String password) {
@@ -295,7 +353,7 @@ public class Database {
 	 */
 	public Order fetchOrder(int orderId) {
 		dbConnect();
-		String sql = "select * from order where orderId=?;";
+		String sql = "select * from `order` where orderId=?;";
 		Order order = new Order();
 		
 		try {
@@ -350,7 +408,7 @@ public class Database {
 	 */
 	public void removeOrder(Order order) {
 		dbConnect();
-		String sql="delete from order where id=?;";
+		String sql="delete from `order` where id=?;";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, order.getOrderId());
@@ -427,7 +485,7 @@ public class Database {
 	 */
 	public void removeOrderItem(Order order, Item item) {
 		dbConnect();
-		String sql="delete from order where itemId=? and orderId=? limit 1;";
+		String sql="delete from order_item where itemId=? and orderId=? limit 1;";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, item.getItemId());
@@ -447,7 +505,7 @@ public class Database {
 	 */
 	public void removeOrderItems(Order order) {
 		dbConnect();
-		String sql="delete from order where orderId=?;";
+		String sql="delete from order_item where orderId=?;";
 		try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, order.getOrderId());
