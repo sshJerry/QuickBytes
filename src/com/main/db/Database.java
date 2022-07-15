@@ -538,8 +538,7 @@ public class Database {
 	//jay to insert a new set
 	public void insertSet(Set set) {
 		dbConnect();
-		 String sql="insert into set(name, price, available, vendorid)"
-		 		+ "values (?,?,?,?)";
+		 String sql="INSERT INTO `set`(name, price, available, vendorId) VALUES (?, ?, ?, ?)";
 		 
 		 try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
@@ -560,13 +559,13 @@ public class Database {
 	//jay add item to item set
 	public void addItemToItemSet(int itemId, int setId) {
 		dbConnect();
-		 String sql="insert into item_set(setId, vendorId)"
-		 		+ "values (?,?)";
+		 String sql="insert into item_set(setId, itemId)"
+		 		+ "values (?, ?)";
 		 
 		 try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, itemId);
-			pstmt.setInt(2, setId);
+			pstmt.setInt(1, setId);
+			pstmt.setInt(2, itemId);
 			
 			pstmt.executeUpdate();
 			
@@ -602,7 +601,7 @@ public class Database {
 	//jay fetch set id
 	public int fetchSetId(String name) {
 		dbConnect();
-		String sql="select setId from set where name=?";
+		String sql="select setId from `set` where name=?";
 		PreparedStatement pstmt;
 		int id=-1;
 		try {
@@ -622,15 +621,16 @@ public class Database {
 	}
 
 //jay update item set
-	public void updateItemSet(Set set) {
+	public void updateItemSet(Set set, int setId) {
 		dbConnect();
-		 String sql="update set name=?, set price=? , set available= ?";
+		 String sql="update `set` set name=?, price=? , available= ? where setId=?";
 		 
 		 try {
 			PreparedStatement pstmt = con.prepareStatement(sql);
 			pstmt.setString(1, set.getName());
 			pstmt.setFloat(2, set.getPrice());
 			pstmt.setInt(3, set.getAvailable());
+			pstmt.setInt(4, setId);
 			
 			pstmt.executeUpdate();
 			
@@ -640,10 +640,37 @@ public class Database {
 		 dbClose();
 	}
 	
+	//jay fetch sets
+	public List<Set> fetchSets(int id) {
+		dbConnect();
+		String sql = "select * from `set` where vendorId=?";
+		List<Set> list = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()) {
+				int setId = rst.getInt("setId");
+				String name = rst.getString("name");
+				float price = rst.getFloat("price");
+				int available = rst.getInt("available");
+				int vendorId = rst.getInt("vendorId");
+				
+				Set set = new Set(setId,name,price,available,vendorId);
+				list.add(set);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
+	
 	/*
-=======
-			/*
->>>>>>> d482231518ec690d7fe2a0082252f08e6a12c537
 	 * KEVIN
 	 * TO BE CALLED WHEN A CUSTOMER DELETES ANY ITEM FROM AN ORDER
 	 * before removeOrder() when applicable

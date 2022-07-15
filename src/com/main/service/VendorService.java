@@ -75,7 +75,6 @@ public class VendorService {
 	private void displayVendorOptions(String username) {
 		Scanner sc=new Scanner(System.in);
 		UserService userService=new UserService();
-		int input=-1;
 		
 		System.out.println("1: Display Menu Item Options");
 		System.out.println("2: Create Meal Set or Item");
@@ -83,7 +82,7 @@ public class VendorService {
 		System.out.println("4: Logout");
 		
 		try {
-			input = sc.nextInt();
+			int input = sc.nextInt();
 			if (input==1) {
 				displayMenuItems(username);
 			}

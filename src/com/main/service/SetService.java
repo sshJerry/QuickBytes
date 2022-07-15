@@ -1,5 +1,6 @@
 package com.main.service;
 
+import java.util.List;
 import java.util.Scanner;
 
 import com.main.db.Database;
@@ -7,7 +8,7 @@ import com.main.model.Set;
 
 public class SetService {
 	Database db;
-	private Scanner sc;
+
 	
 	//Anonymous block initializing database for CRUD methods
 	{
@@ -16,7 +17,7 @@ public class SetService {
 
 	//jay to create meal sets
 	public void createMealSet(int id){
-		
+		Scanner sc=new Scanner(System.in);
 
 		System.out.print("Please enter the set name: ");
 		String name=sc.next();
@@ -36,6 +37,7 @@ public class SetService {
 
 	//jay to add items
 	public void addItems(String name, int id) {
+		Scanner sc=new Scanner(System.in);
 		while(true) {
 		System.out.print("1: Add New Item: ");
 		System.out.print("0: Exit: ");
@@ -58,17 +60,26 @@ public class SetService {
 
 	//jay to edit meal set
 	public void editMealSet(int id) {
-		System.out.print("Please enter the item name: ");
-		String name=sc.next();
+		Scanner sc=new Scanner(System.in);
+		List<Set> sets=db.fetchSets(id);
+		for (int i=0; i<sets.size(); i++) {
+			System.out.println(sets.get(i).getName()+", ");
+		}
+		System.out.print("Please enter the name of the set to edit: ");
+		String name=sc.nextLine();
 		
-		System.out.print("Price: ");
+		System.out.print("Please enter the new name of the set ");
+		String newname=sc.nextLine();
+		
+		System.out.print("New Price: ");
 		float price=sc.nextFloat();
 		
-		System.out.print("Available: ");
+		System.out.print("New Available Quantity: ");
 		int available=sc.nextInt();
 		
-		Set set=new Set(name, price, available, id);
-		db.updateItemSet(set);
+		int setId=db.fetchSetId(name);
+		Set set=new Set(newname, price, available, id);
+		db.updateItemSet(set, setId);
 		addItems(name, id);
 		
 	}
