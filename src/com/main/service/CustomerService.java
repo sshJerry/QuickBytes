@@ -95,21 +95,36 @@ public class CustomerService {
 			//switch case for input
 			//EX case 1: loggedCustomerVendorList(username);
 			//EX case 2: loggedCustomerViewBalance(username);
-			//EX case 3: displayMainAndReadInput() or Break;
+			//EX case 0: displayMainAndReadInput() or Break;
 		
 		//Catch
 			//Exception:
 	}
 	void loggedCustomerVendorList() {
+		System.out.println("Press the number corresponding to the number");
 		// FetchAllVendors, might have to be created
 		// Pass the index of Vendor picked
 		// Have a scanner int here. Store in var
 	}
 	void loggedCustomerVendorItemList() {
+		System.out.println("Press the number corresponding to the number");
 		// This Method has a parameter for var.
 		// 		Pass var in List<Vendor?> sumthin = db.fetchItems(var)
 		//			When item is picked ->
 	}
+	void loggedCustomerViewBalance() {// Parameter username
+		System.out.println("Press the number corresponding to the number");
+		System.out.println("1: Added to balance");
+		System.out.println("0: Go back");
+		//Try
+			//switch case for input
+			//EX case 1: loggedCustomerAddBalance(username);
+			//EX case 0: displayMainAndReadInput() or Break;
 	
+		//Catch
+			//Exception:
+	}
+	void loggedCustomerAddBalance() {// Parameter Username
+	};
 	
 }
