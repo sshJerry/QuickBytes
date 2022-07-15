@@ -76,30 +76,27 @@ public class CustomerService {
 		// db.dbClose();  WHERE WILL IT CLOSE??
 	}
 	
+	/*
+	 * Think about program flow, want to call to return method and
+	 * while(true) +break from this point on?
+	 * Call to a voided method and reach an end point?
+	 * 
+	 * It'll be necessary to pass along throughout program flow,
+	 * the username 
+	 * */
+	
+	/*
+	 * Issues:
+	 * 		- 
+	 * */
 	void loggedCustomerMainMenu(String customerLoginUsername) {
-		/*
-		 * Think about program flow, want to call to return method and
-		 * while(true) +break from this point on?
-		 * Call to a voided method and reach an end point?
-		 * 
-		 * It'll be necessary to pass along throughout program flow,
-		 * the username 
-		 * */
-		
-		int loggedCustomerMainMenuInput;
+		int loggedCustomerMainMenuInput = -1;
+		System.out.println("\n****Main Menu****");
 		System.out.println("Press the number corresponding to the number");
 		System.out.println("1: List of Vendors");		
 		System.out.println("2: View Balance");
 		System.out.println("0: Logout");
 		
-		//Try
-			//switch case for input
-			//EX case 1: loggedCustomerVendorList(username);
-			//EX case 2: loggedCustomerViewBalance(username);
-			//EX case 0: displayMainAndReadInput() or Break;
-		
-		//Catch
-			//Exception:
 		try {
 			loggedCustomerMainMenuInput = sc.nextInt();
 			switch(loggedCustomerMainMenuInput) {
@@ -108,7 +105,53 @@ public class CustomerService {
 			
 			case 2:
 				loggedCustomerViewBalance(customerLoginUsername);
+			case 0: // Logout to the very first menu?
+				break;
 			default:
+				//Adjust wording here
+				System.out.println("INCORRECT INPUT");
+			}
+				
+		}catch(InputMismatchException i){
+			i.printStackTrace();
+		}
+		System.out.println("Thanks! Have a good day!");
+	}
+	
+	void loggedCustomerVendorList(String customerLoginUsername) {
+		System.out.println("\n****Vendor List****");
+		System.out.println("Press the number corresponding to the number");
+		// FetchAllVendors, might have to be created
+		// Pass the index of Vendor picked
+		// Have a scanner int here. Store in var
+	}
+	void loggedCustomerListItemsFromVendor(String customerLoginUsername) {
+		
+	}
+	
+	/*
+	 * Issues:
+	 * 		- customer.getBalance() is incorrect.
+	 * 		- Add to balance functionality missing
+	 * 		- Back to Main Menu functionality missing
+	 * */
+	void loggedCustomerViewBalance(String customerLoginUsername) {
+		int loggedCustomerViewBalanceInput;
+		System.out.println("\n****View Balance****");
+		System.out.println("\nUser: " + customerLoginUsername +
+				"\tYour current balance is: " + customer.getBalance() + "\n");
+		System.out.println("Press the number corresponding to the desired action");
+		System.out.println("1: Add to balance");
+		System.out.println("0: Back to Main Menu");
+
+		
+		try {
+			loggedCustomerViewBalanceInput = sc.nextInt();
+			switch(loggedCustomerViewBalanceInput) {
+			case 1:
+				loggedCustomerAddBalance(customerLoginUsername);
+			default:
+				// WANT TO JUST HERE or "GO BACK HERE"
 				break;
 			}
 				
@@ -116,28 +159,9 @@ public class CustomerService {
 		catch(InputMismatchException i){
 			i.printStackTrace();
 		}
-		System.out.println("Thanks! Have a good day!");
 	}
-	void loggedCustomerVendorList(String customerLoginUsername) {
-		System.out.println("Press the number corresponding to the number");
-		// FetchAllVendors, might have to be created
-		// Pass the index of Vendor picked
-		// Have a scanner int here. Store in var
-	}
-	
-	void loggedCustomerViewBalance(String customerLoginUsername) {// Parameter username
-		System.out.println("Press the number corresponding to the number");
-		System.out.println("1: Added to balance");
-		System.out.println("0: Go back");
-		//Try
-			//switch case for input
-			//EX case 1: loggedCustomerAddBalance(username);
-			//EX case 0: displayMainAndReadInput() or Break;
-	
-		//Catch
-			//Exception:
-	}
-	void loggedCustomerAddBalance() {// Parameter Username
+	void loggedCustomerAddBalance(String customerLoginUsername) {// Parameter Username
+		
 	};
 	
 }
