@@ -1,5 +1,6 @@
 package com.main.service;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import com.main.db.Database;
@@ -69,13 +70,13 @@ public class CustomerService {
 			
 			if(isValidUsername && isValidPassword) {
 				System.out.println("Signed in!");
-				break;
+				loggedCustomerMainMenu(customerLoginUsername);
 			}
 		}
-		db.dbClose();
+		// db.dbClose();  WHERE WILL IT CLOSE??
 	}
 	
-	void loggedCustomerMainMenu() {
+	void loggedCustomerMainMenu(String customerLoginUsername) {
 		/*
 		 * Think about program flow, want to call to return method and
 		 * while(true) +break from this point on?
@@ -85,7 +86,7 @@ public class CustomerService {
 		 * the username 
 		 * */
 		
-		//scanner
+		int loggedCustomerMainMenuInput;
 		System.out.println("Press the number corresponding to the number");
 		System.out.println("1: List of Vendors");		
 		System.out.println("2: View Balance");
@@ -99,20 +100,32 @@ public class CustomerService {
 		
 		//Catch
 			//Exception:
+		try {
+			loggedCustomerMainMenuInput = sc.nextInt();
+			switch(loggedCustomerMainMenuInput) {
+			case 1:
+				loggedCustomerVendorList(customerLoginUsername);
+			
+			case 2:
+				loggedCustomerViewBalance(customerLoginUsername);
+			default:
+				break;
+			}
+				
+		}
+		catch(InputMismatchException i){
+			i.printStackTrace();
+		}
+		System.out.println("Thanks! Have a good day!");
 	}
-	void loggedCustomerVendorList() {
+	void loggedCustomerVendorList(String customerLoginUsername) {
 		System.out.println("Press the number corresponding to the number");
 		// FetchAllVendors, might have to be created
 		// Pass the index of Vendor picked
 		// Have a scanner int here. Store in var
 	}
-	void loggedCustomerVendorItemList() {
-		System.out.println("Press the number corresponding to the number");
-		// This Method has a parameter for var.
-		// 		Pass var in List<Vendor?> sumthin = db.fetchItems(var)
-		//			When item is picked ->
-	}
-	void loggedCustomerViewBalance() {// Parameter username
+	
+	void loggedCustomerViewBalance(String customerLoginUsername) {// Parameter username
 		System.out.println("Press the number corresponding to the number");
 		System.out.println("1: Added to balance");
 		System.out.println("0: Go back");
