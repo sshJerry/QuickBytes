@@ -371,6 +371,40 @@ public class Database {
 		dbClose();
 		return order;
 	}
+	
+	/*
+	 * KEVIN
+	 * get existing orders by vendorId
+	 * @param vendorId - vendorId of the Order data object you want to fetch
+	 */
+	public List<Order> fetchOrders(int vendorId) {
+		dbConnect();
+		String sql = "select * from `order` where vendorId=?;";
+		List<Order> list = new ArrayList<>();
+		
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, vendorId);
+			ResultSet rst = pstmt.executeQuery();
+			while(rst.next()) {
+				int orderId = rst.getInt("orderId");
+				float totalPrice = rst.getFloat("totalPrice");
+				String status = rst.getString("status");
+				String orderTime = rst.getString("orderTime");
+				String endTime = rst.getString("endTime");
+				int customerId = rst.getInt("customerId");
+				
+				Order o = new Order(orderId,totalPrice,status,orderTime,endTime,customerId,vendorId);
+				list.add(o);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dbClose();
+		return list;
+	}
 
 	/*
 	 * KEVIN
