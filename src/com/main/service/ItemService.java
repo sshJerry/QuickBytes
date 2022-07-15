@@ -13,10 +13,10 @@ public class ItemService {
 	
 	
 	//test main method
-	public static void main(String[] args) {
-		ItemService is = new ItemService();
-		is.editItem(1);
-	}
+//	public static void main(String[] args) {
+//		ItemService is = new ItemService();
+//		is.editItem(1);
+//	}
 	/*
 	 * @parameters 
 	 * vendorId will be taken from the current session as an input to this method 
@@ -73,7 +73,6 @@ public class ItemService {
 		i.setPrice(price);
 		i.setVendorId(vendorId);
 		db.updateItem(i);
-			
-		
 	}
+
 }
