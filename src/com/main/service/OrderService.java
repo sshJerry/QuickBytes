@@ -50,4 +50,55 @@ public class OrderService {
 		db.updateOrder(order,newOrder);
 		db.addOrderItem(order, item);
 	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN VENDOR ACCEPTS/DENIES AN ORDER
+	 * update order status & end time
+	 * @param order - Order being updated
+	 * @param status - new status of Order
+	 * @param endTime - new end time of Order (should have been null before)
+	 */
+	public void updateOrderStatus(Order order, String status, String endTime) {
+		Order newOrder = order;
+		newOrder.setStatus(status);
+		newOrder.setEndTime(endTime);
+		db.updateOrder(order, newOrder);
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN REMOVING AN ITEM FROM AN ORDER
+	 * delete item from order
+	 * @param order - Order in which item is being removing
+	 * @param item - Item the user is removing
+	 */
+	public void deleteItemFromOrder(Order order, Item item) {
+		db.removeOrderItem(order,item);
+		
+		//remove cost of item from order
+		Order newOrder = order;
+		newOrder.setTotalPrice(order.getTotalPrice()-item.getPrice());
+		db.updateOrder(order,newOrder);
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN REMOVING ALL ITEMS FROM AN ORDER AS A CUSTOMER
+	 * delete order items
+	 * @param order - Order in which items are being removing
+	 */
+	public void deleteItemsFromOrder(Order order) {
+		db.removeOrderItems(order);
+	}
+	
+	/*
+	 * KEVIN
+	 * TO BE CALLED AFTER REMOVING THE LAST ITEM FROM AN ORDER AS A CUSTOMER
+	 * delete order obj
+	 * @param order - Order in which item is being removing
+	 */
+	public void deleteOrder(Order order) {
+		db.removeOrder(order);
+	}
 }
