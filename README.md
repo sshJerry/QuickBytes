@@ -23,7 +23,6 @@
     - Deny Order
   - Logout
 <br />
-
 > Data Functionalities
 - Customer
   - Creation, Login Validation, Adjust Balance, Add Items to Order, Place Order, Edit Order, Cancel Order, Logout
@@ -31,7 +30,6 @@
   - Creation Login Validation, Add Items, Create Meal Sets, Remove Items, Edit Items (Change Availablity), Edit Sets, Accept/Deny Order, Logout
 - Balanced Automatically Adjusted
 <br />
-
 > Task Distribution
 1. James Powell <br />
 Task Given:
@@ -58,8 +56,8 @@ Task Completed:
   - 
   - Meal_Set Creation
   - Meal_Set Editing
-  
-3. Jerry A <br />
+
+3. Jerome Antoine <br />
 Task Given:
   - Customer Creation
   - Customer Login
