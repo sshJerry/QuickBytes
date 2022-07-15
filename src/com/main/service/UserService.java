@@ -32,7 +32,7 @@ public class UserService {
 			input = sc.nextInt();
 		} catch (InputMismatchException ime) {
 			System.out.println("\nIncorrect Input Type Detected. Please Try a Number!\n");
-			sc.next();
+			sc.nextInt();
 		}
 		
 		return input;
