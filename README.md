@@ -33,7 +33,7 @@
 <br />
 
 > Task Distribution
-1. James Powell
+1. James Powell <br />
 Task Given:
   - Item Creation
   - Item Editing
@@ -45,7 +45,7 @@ Task Completed:
   - Admin Creation
   - Admin Login
   
-2. Jay Harris
+2. Jay Harris <br />
 Task Given:
   - Vendor Login
   - Vendor Menu
@@ -57,7 +57,7 @@ Task Completed:
   - Meal_Set Creation
   - Meal_Set Editing
   
-3. Jerome Antoine
+3. Jerome Antoine <br />
 Task Given:
   - Customer Creation
   - Customer Login
@@ -67,7 +67,7 @@ Task Completed:
   - Customer Login
   - 
 
-4. Kevin Liu
+4. Kevin Liu <br />
 Task Given:
   - Vendor Creation
   - Order Creation
