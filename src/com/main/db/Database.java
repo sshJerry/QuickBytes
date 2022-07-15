@@ -639,4 +639,28 @@ public class Database {
 			dbClose();
 			return customerList;
 		}
+
+		public Customer getCustomer(String customerLoginUsername) {
+			dbConnect();
+			String sqlStatement = "select * from Customer where username=?";
+			Customer customer = new Customer();
+			try {
+				PreparedStatement pstmt = con.prepareStatement(sqlStatement);
+				pstmt.setString(1, customerLoginUsername);
+				ResultSet rst = pstmt.executeQuery();
+				rst.next();
+				customer = new Customer (rst.getInt("customerId"),
+						rst.getInt("employeeId"),
+						rst.getString("firstName"),
+						rst.getString("lastName"),
+						rst.getString("username"),
+						rst.getString("password")
+						rst.getFloat("balance"));
+				
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+			dbClose();
+			return null;
+		}
 }

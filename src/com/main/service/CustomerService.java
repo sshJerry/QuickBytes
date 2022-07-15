@@ -122,6 +122,7 @@ public class CustomerService {
 		System.out.println("\n****Vendor List****");
 		System.out.println("Press the number corresponding to the number");
 		// FetchAllVendors, might have to be created
+		//fetchVendors()
 		// Pass the index of Vendor picked
 		// Have a scanner int here. Store in var
 	}
@@ -136,6 +137,7 @@ public class CustomerService {
 	 * 		- Back to Main Menu functionality missing
 	 * */
 	void loggedCustomerViewBalance(String customerLoginUsername) {
+		Customer logged =  db.getCustomer(customerLoginUsername);
 		int loggedCustomerViewBalanceInput;
 		System.out.println("\n****View Balance****");
 		System.out.println("\nUser: " + customerLoginUsername +
@@ -160,7 +162,7 @@ public class CustomerService {
 			i.printStackTrace();
 		}
 	}
-	void loggedCustomerAddBalance(String customerLoginUsername) {// Parameter Username
+	void loggedCustomerAddBalance(String customerLoginUsername) {
 		
 	};
 	
