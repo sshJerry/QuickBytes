@@ -41,7 +41,7 @@ public class Database {
 	/** JAMES - ITEM */
 
 	/*
-	 * @parameters i -> an item that has just been created and now is being inserted
+	 * @parameter i -> an item that has just been created and now is being inserted
 	 * into the database
 	 */
 	public void addItem(Item i) {
@@ -96,8 +96,8 @@ public class Database {
 	/*
 	 * James
 	 * 
-	 * @parameters i --> the item that is going to be revised name --> the old name
-	 * of the item
+	 * @parameter i --> the item that is going to be revised 
+	 * @parameter name --> the old nameof the item
 	 */
 	public void updateItem(Item i) {
 		dbConnect();
@@ -203,6 +203,23 @@ public class Database {
 			e.printStackTrace();
 		}
 
+		dbClose();
+	}
+	/*
+	 * KEVIN
+	 * TO BE CALLED WHEN A CUSTOMER DELETES THE LAST ITEM OF AN ORDER
+	 * @param order - order being deleted
+	 */
+	public void removeOrder(Order order) {
+		dbConnect();
+		String sql="delete from order where id=?;";
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, order.getOrderId());
+			pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		dbClose();
 	}
 
@@ -422,6 +439,57 @@ public class Database {
 			e.printStackTrace();
 		}
 		dbClose();
+	}
+
+	public int validateCustomerAndReturnId(String username, String password) {
+		dbConnect();
+		String sql = "select * from customers where username=? and password=?";
+		boolean isPresent = false;
+		System.out.println("2");
+		try {
+			System.out.println("3");
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, username);
+			pstmt.setString(2, password);
+
+			ResultSet rst = pstmt.executeQuery();
+			isPresent = rst.next();
+			if (isPresent) {
+				dbClose();
+				return rst.getInt("customerId");
+				
+			}
+			dbClose();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		return -1;
+	
+	}
+
+	public void addCustomer(Customer c) {
+		dbConnect();
+
+		String sql = "insert into customer(employeeId,firstname,lastname,username,password,balance) values (?,?,?,?,?,?);";
+
+		try {
+			PreparedStatement pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, c.getEmployeeId());
+			pstmt.setString(2, c.getFirstName());
+			pstmt.setString(3, c.getLastName());
+			pstmt.setString(4, c.getUsername());
+			pstmt.setString(5, c.getPassword());
+			pstmt.setFloat(6, c.getBalance());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		dbClose();
+		
 	}
 
 }

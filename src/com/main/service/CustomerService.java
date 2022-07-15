@@ -2,32 +2,29 @@ package com.main.service;
 
 import java.util.Scanner;
 
-import com.main.db.Database;
-
 public class CustomerService {
-	Database db;
-	private Scanner sc;
-	
-	//Anonymous block initializing database for CRUD methods
-	{
-		db = new Database();
-	}
-	
+	Scanner sc = new Scanner(System.in);
+
 	public void createAccount() {
 		// TODO Auto-generated method stub
-		//Placeholder for customer creation menu
-		System.out.println("DEBUG: Customer Creating Account"); 
-		db.dbConnect();
-		
-		db.dbClose();
-		
 		
 	}
-	
+
 	public void login() {
 		// TODO Auto-generated method stub
-		//Placeholder for customer creation menu
-		System.out.println("DEBUG: Customer Logging In");
+		
 	}
 	
+	public void addMoreItems(String customerLoginUsername, int vendorId) {
+		System.out.println("Item successfully added to order!\n\n Press 1 to add more items\nPress 0 to submit your order");
+		int choice = sc.nextInt();
+		
+		if (choice == 1) {
+			//return to other function recursively
+		}
+		else if (choice == 0) {
+			
+		}
+		
+	}
 }

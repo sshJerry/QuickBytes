@@ -1,0 +1,16 @@
+	public void addMoreItems(String customerLoginUsername, int vendorId, Order order) {
+		System.out.println("Item successfully added to order!\n\n Press 1 to add more items\nPress 0 to submit your order");
+		int choice = sc.nextInt();
+		
+		if (choice == 1) {
+			//return to other function recursively
+		}
+		else if (choice == 0) {
+			//change order status to pending
+			OrderService os = new OrderService();
+			os.updateOrderStatus(order,"pending", "later");
+		}
+		else {
+			System.out.println("that was not an option, please choose either 1 or 0");
+			addMoreItems(customerLoginUsername,vendorId,order);
+		}
