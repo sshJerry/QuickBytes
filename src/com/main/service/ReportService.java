@@ -24,60 +24,6 @@ public class ReportService {
 		db = new Database();
 	}
 	
-//	PUT THIS IN ADMINSERVICE.JAVA DURING MERGE	
-//	/*
-//	 * KEVIN
-//	 * TO BE CALLED WHEN ADMIN PRESSES 1
-//	 */
-//	public void chooseVendor() {
-//		int input = displayVendorMenuAndReadInput();
-//		
-//		if (input == 0) {
-//			chooseOption();
-//		} else {
-//			rs.generateGeneralReport(db.fetchVendor(input)); //generate report from ReportService
-//		}	
-//		
-//	};
-//	
-//	/*
-//	 * KEVIN
-//	 * display vendors as a menu
-//	 */
-//	public int displayVendorMenuAndReadInput() {
-//		int input = -1;
-//		boolean validInput = false;
-//		
-//		System.out.println("\nChoose a Vendor: ");
-//		
-//		List<Vendor> vendors = db.fetchVendors();
-//		for (Vendor v : vendors) {
-//			System.out.println(v.getVendorId() + ". " + v.getName());
-//		}
-//		
-//		System.out.println("0. Exit");
-//		try {
-//			input = sc.nextInt();
-//		} catch (InputMismatchException ime) {
-//			System.out.println("\nIncorrect Input Type Detected!\n");
-//			sc.next();
-//		}
-//		
-//		//validate if vendor exists
-//		for (Vendor v : vendors) {
-//			if (input == v.getVendorId()) {
-//				validInput = true;
-//			}
-//		}
-//		
-//		if (validInput) {
-//			return input;
-//		} else {
-//			System.out.println("\nVendor ID Not Detected!\n");
-//			return 0;
-//		}
-//	}
-	
 	public void generateGeneralReport(Vendor vendor) {
 		File report = new File("report.txt");
 		
