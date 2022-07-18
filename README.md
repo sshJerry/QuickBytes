@@ -38,28 +38,20 @@
 
 
 1. James Powell <br />
-Task Given:
-  - Item Creation, Item Editing, Admin Creation, Admin Login, Admin Menu
-Task Completed: 
-  - Item Creation, Item Editing, Admin Creation, Admin Login, Admin Menu
+  - Task Given: Item Creation, Item Editing, Admin Creation, Admin Login, Admin Menu
+  - Task Completed: Item Creation, Item Editing, Admin Creation, Admin Login, Admin Menu
   
 2. Jay Harris <br />
-Task Given:
-  - Vendor Login, Vendor Menu, Meal Set Creation, MealSet Editing
-Task Completed: 
-  - Vendor Login, Vendor Menu, Meal Set Creation, MealSet Editing
+  - Task Given: Vendor Login, Vendor Menu, Meal Set Creation, MealSet Editing
+  - Task Completed: Vendor Login, Vendor Menu, Meal Set Creation, MealSet Editing
 
 3. Jerry A <br />
-Task Given:
-  - Customer Creation, Customer Login, Customer Menu, Model Classes, Database Connect & Close, Created Git Repo
-Task Completed: 
-  - Customer Creation, Customer Login, Customer Menu, Model Classes, Database Connect & Close, Created Git Repo
+  - Task Given: Customer Creation, Customer Login, Customer Menu, Model Classes, Database Connect & Close, Created Git Repo
+  - Task Completed:  Customer Creation, Customer Login, Customer Menu, Model Classes, Database Connect & Close, Created Git Repo
 
 4. Kevin Liu <br />
-Task Given:
-  - Vendor Creation, Order Creation, Order Editing, Order Deletion, Order_Item Creation, Order_Item Editing, Order_Item Deletion, Report Generation
-Task Completed:
-  - Vendor Creation, Order Creation, Order Editing, Order Deletion, Order_Item Creation, Order_Item Editing, Order_Item Deletion, Report Generation
+  - Task Given: Vendor Creation, Order Creation, Order Editing, Order Deletion, Order_Item Creation, Order_Item Editing, Order_Item Deletion, Report Generation
+  - Task Completed: Vendor Creation, Order Creation, Order Editing, Order Deletion, Order_Item Creation, Order_Item Editing, Order_Item Deletion, Report Generation
 <br />  
 
 > Future Scope
