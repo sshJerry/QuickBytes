@@ -72,7 +72,7 @@ public class VendorService {
 	}
 	
 	//Jay- display vendor items
-	public void displayVendorOptions(String username) {
+	private void displayVendorOptions(String username) {
 		Scanner sc=new Scanner(System.in);
 		UserService userService=new UserService();
 		
