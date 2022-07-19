@@ -9,6 +9,7 @@ import com.main.model.Order;
 
 public class OrderService {
 	Database db;
+	private Scanner sc;
 	
 	//Anonymous block initializing database for CRUD methods
 	{
@@ -102,4 +103,43 @@ public class OrderService {
 	public void deleteOrder(Order order) {
 		db.removeOrder(order);
 	}
+
+	//jay to accept order
+	public void acceptOrder(List<Order> orders) {
+		for (int i=0; i<orders.size(); i++) {
+			if (orders.get(i).getStatus().equalsIgnoreCase("in_progress") || orders.get(i).getStatus().equalsIgnoreCase("pending")) {
+				System.out.print(orders.get(i).getOrderId()+ ", ");
+			}
+		}
+		System.out.print("Enter OrderId: ");
+		int orderId=sc.nextInt();
+		
+		for (int i=0; i<orders.size(); i++) {
+			if (orders.get(i).getOrderId()==orderId) {
+				updateOrderStatus(orders.get(i), "Accepted", "Now");
+			}
+		}
+		
+	}
+	
+	//jay to delete order
+
+	public void deleteOrder(List<Order> orders) {
+		for (int i=0; i<orders.size(); i++) {
+			if (orders.get(i).getStatus().equalsIgnoreCase("in_progress") || orders.get(i).getStatus().equalsIgnoreCase("pending")) {
+				System.out.print(orders.get(i).getOrderId()+ ", ");
+			}
+		}
+		System.out.print("Enter OrderId: ");
+		int orderId=sc.nextInt();
+		
+		for (int i=0; i<orders.size(); i++) {
+			if (orders.get(i).getOrderId()==orderId) {
+				db.removeOrder(orders.get(i));
+			}
+		}
+		
+	}
+
+
 }

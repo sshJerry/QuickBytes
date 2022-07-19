@@ -1,5 +1,6 @@
 package com.main.service;
 
+import java.sql.SQLException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -31,7 +32,7 @@ public class UserService {
 			input = sc.nextInt();
 		} catch (InputMismatchException ime) {
 			System.out.println("\nIncorrect Input Type Detected. Please Try a Number!\n");
-			sc.next();
+			sc.nextInt();
 		}
 		
 		return input;
@@ -65,7 +66,7 @@ public class UserService {
 	 * KEVIN
 	 * Called after choosing to login on main menu
 	 */
-	public void login() { // KEVIN
+	public void login()  { // KEVIN
 		while (true) {
 			userInput = this.displayLoginAndReadInput();
 	
