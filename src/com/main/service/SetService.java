@@ -39,8 +39,8 @@ public class SetService {
 	public void addItems(String name, int id) {
 		Scanner sc=new Scanner(System.in);
 		while(true) {
-		System.out.print("1: Add New Item: ");
-		System.out.print("0: Exit: ");
+		System.out.println("1: Add New Item: ");
+		System.out.println("0: Exit: ");
 		int input=sc.nextInt();
 		if (input==0) {
 			break;
