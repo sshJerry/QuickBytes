@@ -79,28 +79,33 @@ public class VendorService {
 		System.out.println("1: Display Menu Item Options");
 		System.out.println("2: Create Meal Set or Item");
 		System.out.println("3: View Orders");
-		System.out.println("4: Logout");
+		System.out.println("0: Logout");
 		
 		try {
 			int input = sc.nextInt();
-			if (input==1) {
-				displayMenuItems(username);
-			}
-			
-			
-			else if (input== 2) {
-				
-				createMealSetOrItem(username);
-			}
-			else if (input==3) {
-				
-				viewOrders(username);
-			}
-			else{
+			if (input==0) {
 				userService.login();
 			}
-	
-		} catch (InputMismatchException ime) {
+			switch(input) {
+			
+			case 1:
+				displayMenuItems(username);
+				break;
+			
+			case 2:
+				
+				createMealSetOrItem(username);
+				break;
+				
+			case 3:
+				
+				viewOrders(username);
+				break;
+				
+			}
+			
+		}
+	 catch (InputMismatchException ime) {
 			System.out.println("\nIncorrect Input Type. Please Try Again!\n");
 		}
 		
@@ -115,29 +120,31 @@ public class VendorService {
 	
 		System.out.println("1: Accept Order");
 		System.out.println("2: Delete Order");
-		System.out.println("3: Back");
+		System.out.println("0: Back");
 		List<Order> orders=new ArrayList<>();
 		OrderService orderService=new OrderService();
 		try {
 		    int input = sc.nextInt();
-			if (input==1) {
+			if (input==0) {
+				displayVendorOptions(username);
+			
+			}
+			switch(input) {
+			
+			case 2:
 				orders=db.fetchOrders(id);
 				orderService.acceptOrder(orders);
 				displayVendorOptions(username);
-			}
+				break;
+				
 			
-			
-			else if (input==2) {
+			case 3:
 				orders=db.fetchOrders(id);
 				orderService.deleteOrder(orders);
 				displayVendorOptions(username);
-			}	
-			
-			else if (input==3) {
-				displayVendorOptions(username);
-			}
+				break;
 		}
-	
+			}
 		catch (InputMismatchException ime) {
 			System.out.println("\nIncorrect Input Type. Please Try Again!\n");
 		}
@@ -153,21 +160,24 @@ public class VendorService {
 		
 			System.out.println("1: Create Meal Set");
 			System.out.println("2: Create Item");
-			System.out.println("3: Back");
+			System.out.println("0: Back");
 			try {
 			    int input = sc.nextInt();
-				if (input==1) {
+				if (input==0) {
+					displayVendorOptions(username);
+				}
+				
+				switch(input){
+				
+				case 1:
 					setService.createMealSet(id);
 					displayVendorOptions(username);
-				}
-			
+					break;
 				
-				else if (input==2) {
+				case 2:
 					itemService.createItem(id);
 					displayVendorOptions(username);
-				}
-				else if (input==3) {
-					displayVendorOptions(username);
+					break;
 					
 				}
 			}
@@ -190,24 +200,26 @@ public class VendorService {
 	
 		System.out.println("1: Edit Item");
 		System.out.println("2: Edit Meal Set");
-		System.out.println("3: Back");
+		System.out.println("0: Back");
 		try {
 		    int input = sc.nextInt();
-			if (input==1) {
+			if (input==0) {
+				itemService.editItem(id);
+			}
+			switch(input) {
+			
+			case 2:
 				itemService.editItem(id);
 				displayVendorOptions(username);
-			}
+				break;
 			
-			else if (input==2) {
-				
+			case 3:
 				setService.editMealSet(id);
 				displayVendorOptions(username);
-			}
-			else if (input==3) {
-				displayVendorOptions(username);
+				break;
 			
 		}
-	}
+		}
 			catch (InputMismatchException ime) {
 				System.out.println("\nIncorrect Input Type. Please Try Again!\n");
 			}
