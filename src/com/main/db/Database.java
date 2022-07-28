@@ -813,18 +813,18 @@ public class Database {
 				pstmt.setString(1, customerLoginUsername);
 				ResultSet rst = pstmt.executeQuery();
 				rst.next();
-				customer = new Customer (rst.getInt("customerId"),
+				customer = new Customer (
+						rst.getInt("customerId"),
 						rst.getInt("employeeId"),
 						rst.getString("firstName"),
 						rst.getString("lastName"),
 						rst.getString("username"),
-						rst.getString("password")
+						rst.getString("password"),
 						rst.getFloat("balance"));
-				
 			}catch(SQLException e){
 				e.printStackTrace();
 			}
 			dbClose();
-			return null;
+			return customer;
 		}
 }
